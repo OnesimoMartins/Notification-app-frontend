@@ -1,0 +1,119 @@
+<div class="col-12">
+  <div class="card">
+    <h2>Perfil</h2>
+    <div class="grid">
+      <div class="col-5 align-items-center justify-content-center">
+        <div class="card">
+          <h5>Nome</h5>
+          <p>Áurio Schel</p>
+
+          <h5>Telemóvel</h5>
+          <p>931 908 900</p>
+
+          <h5>Função</h5>
+          <p>Administrador</p>
+        </div>
+
+        <div class="p-fluid">
+
+          <button pButton  type="button"
+          label="Alterar Numero telefónico"
+           class="p-button-outlined p-button-secondary mt-2"
+           (click)="setOption(1)"
+          ></button>
+          <!-- p-button-selected  -->
+          <div style="margin-bottom: 6px"></div>
+
+          <button pButton
+            type="button"
+            label="Alterar Nome"
+            class=" p-button-outlined p-button-secondary mt-2"
+            (click)="setOption(2)">
+          </button>
+
+          <div style="margin-bottom: 6px"></div>
+
+          <button pButton
+          type="button"
+          label="Alterar Palavra-passe"
+          class="p-button-outlined p-button-secondary mt-2"
+          (click)="setOption(3)"></button>
+
+        </div>
+      </div>
+
+      <div class="col-2">
+        <p-divider layout="vertical">
+          <!-- <b>OR</b> -->
+          <!-- <span class="p-tag"></span> -->
+        </p-divider>
+      </div>
+      <div class="col-5 align-items-center justify-content-center">
+
+        <div *ngIf="option==0">
+          <h5>Informção</h5>
+        <p class="line-height-3 m-0" >
+          Para editar informações sobre o seu perfil utilize os botões situados
+          na parte inferior esquerda do ecrã. Caso deseje alterar a sua função
+          de trabalho contacte um administrador.
+        </p>
+      </div>
+
+        <div style="margin-bottom: 6px"></div>
+
+        <div class="p-fluid" >
+
+          <form [formGroup]="changeNumberForm" *ngIf="option==1">
+            <h5>Alterar Número de Telefone</h5>
+
+            <div class="field">
+              <label for="text">Novo Telefone</label>
+              <input pInputText  type="text" formControlName="number" />
+
+            </div>
+          </form>
+
+          <div *ngIf="option==2">
+            <form >
+            <h5>Alterar Nome</h5>
+
+            <div class="field">
+              <label for="password">Novo nome</label>
+              <input pInputText  type="text" />
+            </div>
+            <div class="field">
+              <label for="password">Novo sobrenome</label>
+              <input pInputText  type="text" />
+            </div>
+          </form>
+          </div>
+
+
+        <!-- <div >  CHANGE PASSWORD FORM-->
+
+        <form [formGroup]="changePasswordForm" *ngIf="option==3">
+          <h5>Alterar palavra-passe</h5>
+          <div class="field">
+            <label for="username" >Palavra-passe actual</label>
+            <input pInputText  type="password" formControlName="oldPassword"/>
+          </div>
+          <div class="field">
+            <label for="password">Nova Palavra-passe</label>
+            <input pInputText  type="password" formControlName="newPassword" />
+          </div>
+        </form>
+
+        <!-- </div> -->
+
+          <p-button label="Alterar" class="mt-2"  (onClick)="updateWorker()"
+          *ngIf="option!=0"
+          [disabled]="(changePasswordForm.invalid && option==3) || (changeNumberForm.invalid && option==1)"
+          ></p-button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

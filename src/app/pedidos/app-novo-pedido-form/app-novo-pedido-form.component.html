@@ -1,0 +1,65 @@
+
+<form [formGroup]="pedidoForm" (ngSubmit)="submitPedido()">
+
+  <div class="grid">
+
+  <div class="col-12 ">
+		<div class="card">
+
+      <div class="p-fluid">
+			<h5>Novo Pedido</h5>
+
+      <div class="field">
+				<label >Número de telefone do cliente</label>
+				<input pInputText  type="text" formControlName="numero" (input)="getCliente()" />
+
+        <small *ngIf="pedidoForm.controls['numero'].hasError('required')
+        && pedidoForm.controls['numero'].touched" >O número de telefone é obrigatório</small>
+
+        <small *ngIf="pedidoForm.controls['numero'].hasError('phoneNumber')
+        && pedidoForm.controls['numero'].touched && !pedidoForm.controls['numero'].hasError('required')" >
+        Este número de telefone é inválido.</small>
+
+			</div>
+			<div class="field" >
+				<label htmlFor="email1">Nome do cliente</label>
+				<input pInputText id="email1" type="text" formControlName="nome" />
+        <small *ngIf="pedidoForm.controls['nome'].hasError('required')
+        && pedidoForm.controls['nome'].touched" >O nome do cliente é obrigatório.</small>
+			</div>
+
+    </div>
+
+			<h5>Itens do pedido:</h5>
+			<div class="formgroup-inline">
+
+        <div class="field ">
+					<label htmlFor="firstname1" class="p-sr-only">Firstname</label>
+					<input pInputText id="firstname1" type="text" placeholder="Descrição" #item/>
+				</div>
+
+				<button pButton label="Adicionar" (click)="addItem(item.value)" type="button" [disabled]="!item.value"
+        class="p-button-secondary"
+        ></button>
+			</div>
+
+    <ul *ngFor="let item of pedidoForm.controls['itens'].value">
+      <li>{{item}}</li>
+    </ul>
+
+    <small *ngIf="pedidoForm.controls['itens'].value.length==0" >Adicione pelo menos um item ao seu pedido.</small>
+
+    <div class="mb-3" style="margin-top: 22px;"></div>
+
+    <button pButton label="Registrar pedido" type="submit" [disabled]="pedidoForm.invalid ||
+    pedidoForm.controls['itens'].value ==0"></button>
+		</div>
+
+
+    <p-toast key="tst"></p-toast>
+
+	</div>
+
+
+</div>
+</form>

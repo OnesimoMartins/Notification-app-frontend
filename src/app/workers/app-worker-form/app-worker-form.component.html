@@ -1,0 +1,49 @@
+
+<!-- <form (ngSubmit)="submitPedido()"> -->
+<div class="grid">
+
+  <div class="col-12 ">
+		<div class="card">
+
+      <div class="p-fluid">
+			<h5>{{tittle}}</h5>
+			<div class="field">
+				<label htmlFor="name1">Número de telefone</label>
+				<input pInputText id="name1" type="text" [(ngModel)]="funcionario.telefone"/>
+			</div>
+			<div class="field" >
+				<label htmlFor="email1">Nome</label>
+				<input pInputText id="email1" type="text" [(ngModel)]="funcionario.nome" />
+
+        <small>Enter your username to reset your password.</small>
+			</div>
+      <div class="field" >
+				<label htmlFor="sobrenome">Sobrenome</label>
+				<input pInputText id="sobrenome" type="text" [(ngModel)]="funcionario.sobrenome"  />
+
+        <small>Enter your username to reset your password.</small>
+			</div>
+
+      <div class="field" >
+				<label htmlFor="cargo">Cargo</label>
+
+			<p-dropdown [options]="['S','B']"  placeholder="Seleccione o cargo" ></p-dropdown>
+
+			</div>
+
+      <!-- [(ngModel)]="selectedDrop" -->
+    </div>
+
+
+    <!-- ver artigo open closed-->
+    <button pButton label="Guardar"></button>
+		</div>
+
+
+	</div>
+
+
+</div>
+
+
+<!-- </form> -->

@@ -1,0 +1,97 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <h5>Fucionários</h5>
+
+      <p-dataView
+        #dv
+        [value]="funcionarioPage.content"
+        [rows]="6"
+        layout="grid"
+
+        [paginator]="true"
+        [lazy]="true"
+        [totalRecords]="totalElements"
+        (onLazyLoad)="paging($event)"
+
+      >
+
+        <ng-template pTemplate="header">
+          <div  class="grid grid-nogutter flex-column md:flex-row justify-content-between">
+
+            <span class="p-input-icon-left mb-2 md:mb-0">
+              <i class="pi pi-search"></i>
+              <input type="search" pInputText placeholder="Nome do cliente" />
+            </span>
+
+            <p>Apresentando pedidos de </p>
+          </div>
+        </ng-template>
+
+
+        <ng-template let-funcionario pTemplate="gridItem">
+					<div class="col-12 md:col-4">
+						<div class="card m-3 border-1 surface-border">
+							<div class="flex align-items-center justify-content-between">
+
+								<!-- <div class="flex align-items-center">
+									<i class="pi pi-tag mr-2"></i>
+									<span class="font-semibold">{{funcionario.id}}</span>
+								</div> -->
+
+								<!-- <span [class]="'sm:ml-2 product-badge status-lowstock'">{{"Pendente"}}</span> -->
+							</div>
+							<div class="text-center">
+                <!-- <div class="mb-3" *ngFor="let i of pedido.items" style="margin-top:14px ;">
+                   <p>  {{i.descricao}}</p>
+                </div> -->
+								<div class="mb-3">
+
+                  <div class="flex align-items-center">
+                    <span class="font-semibold"> ID :</span>
+                    <span>{{" "+funcionario.id}}</span>
+                  </div>
+
+                  <div class="flex align-items-center">
+                    <span class="font-semibold"> Nome :</span>
+                    <span>{{" "+funcionario.nome}}</span>
+                  </div>
+
+                  <div class="flex align-items-center">
+                    <span class="font-semibold">Sobrenome:</span>
+                    <span>{{' ---'+funcionario.sobrenome}}</span>
+                  </div>
+                  <div class="flex align-items-center">
+                    <span class="font-semibold">Telefone:</span>
+                    <span>{{' ---'+funcionario.telefone}}</span>
+                  </div>
+
+
+                  <!-- <div class="mb-3" style="margin-top: 12px;">{{'2020-10-12'}}</div> -->
+                </div>
+							</div>
+							<div class="flex align-items-center justify-content-between">
+								<a pButton [routerLink]="'/funcionarios/'+funcionario.id"> <i class="pi pi-fw pi-user-edit"></i>  </a>
+
+
+                <button pButton  style="margin-left: 8px;" class="p-button-secondary ">
+                  <i class="pi pi-fw pi-lock"></i>
+                </button>
+                <!-- <button pButton  style="margin-left: 8px;" class="p-button-secondary ">
+                  <i class="pi pi-fw pi-lock-open"></i>
+                </button> -->
+                <button pButton  style="margin-left: 8px;" class="p-button-danger ">
+                  <i class="pi pi-fw pi-trash"></i>
+                </button>
+                <!-- <p-button > Desactivar</p-button> -->
+							</div>
+						</div>
+					</div>
+				</ng-template>
+      </p-dataView>
+
+
+
+    </div>
+  </div>
+</div>
