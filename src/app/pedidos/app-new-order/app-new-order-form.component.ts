@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ClienteService } from 'src/app/core/services/cliente.service';
-import { PhoneNumberValidator } from 'src/app/core/validators/phone.validator';
+import { phoneNumber } from 'src/app/core/validators/phone.validator';
 
 @Component({
-  selector: 'app-novo-pedido-form',
-  templateUrl: './app-novo-pedido-form.component.html',
+  selector: 'app-new-order-form',
+  templateUrl: './app-new-order-form.component.html',
   providers:[MessageService]
 })
-export class AppNovoPedidoFormComponent {
+export class AppNewOrderFormComponent {
 
-  constructor(private clienteService:ClienteService,private messageService:MessageService) { }
+  constructor(private clienteService:ClienteService
+    ,private messageService:MessageService) { }
 
   pedidoForm=new FormGroup({
-    numero:new FormControl("",[Validators.required,PhoneNumberValidator]),
+    numero:new FormControl("",[Validators.required,phoneNumber]),
     nome: new FormControl("",[Validators.required]),
     itens: new FormControl([])
   })
+
 
 
   addItem(item:string){

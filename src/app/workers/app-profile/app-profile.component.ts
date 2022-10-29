@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WorkerService } from 'src/app/core/services/funcionario.service';
-import { PhoneNumberValidator } from 'src/app/core/validators/phone.validator';
+import { phoneNumber } from 'src/app/core/validators/phone.validator';
 
 @Component({
   selector: 'app-app-profile',
@@ -20,7 +20,7 @@ export class AppProfileComponent  {
   })
 
   changeNumberForm= new FormGroup({
-    number:new FormControl("",PhoneNumberValidator)
+    number:new FormControl("",phoneNumber)
   })
 
   updateWorker(){

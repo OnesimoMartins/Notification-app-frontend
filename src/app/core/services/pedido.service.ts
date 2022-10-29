@@ -30,10 +30,6 @@ export class PedidoService {
     url+=`&nomeCliente=${nome}`
 
 
-    console.log(url);
-
-
-
     return this.http.get<any>(url).pipe(
       map(it=>{
 

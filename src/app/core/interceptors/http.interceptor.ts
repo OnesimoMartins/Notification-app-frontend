@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import {finalize } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 import { LoaderService } from '../services/loader.service';
 
 @Injectable({
@@ -10,15 +11,19 @@ import { LoaderService } from '../services/loader.service';
 })
 export class AppHttpInterceptor implements HttpInterceptor {
 
-  constructor(private loaderService:LoaderService) { }
+  constructor(private loaderService:LoaderService,private authService:AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     this.loaderService.show()
 
-    if(!req.url.includes("oauth/")){
-      console.log(req.url);
+    if(!req.url.includes('/oauth/token')){
 
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authService.getAccessToken()}`,
+        }
+    });
     }
 
     return next.handle(req).pipe(

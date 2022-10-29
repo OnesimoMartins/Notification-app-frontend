@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMenuComponent } from './layout/app-menu/app.menu.component';
 import { AppSidebarComponent } from './layout/app-sidebar/app-sidebar.component';
 import { PrimengModule } from './primeng/primeng.module';
+import { AppConfirmationBoxComponent } from './app-confirmation-box/app-confirmation-box.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PrimengModule } from './primeng/primeng.module';
     AppFooterComponent,
     AppSidebarComponent,
     AppMenuComponent,
-    AppMenuItemComponent
+    AppMenuItemComponent,
+    AppConfirmationBoxComponent
   ],
   imports: [
     BrowserModule,

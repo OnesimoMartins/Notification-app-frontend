@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { ValidNumber } from '../algorithms/validations.algorithm';
 
-export function PhoneNumberValidator(
+export function phoneNumber(
   control: AbstractControl
 ): ValidationErrors | null {
   const initials = ['91', '92', '93', '94', '95'];

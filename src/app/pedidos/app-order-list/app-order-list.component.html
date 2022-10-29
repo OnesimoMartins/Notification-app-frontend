@@ -85,8 +85,7 @@
 							</div>
 							<div class="flex align-items-center justify-content-between" *ngIf="pedido.status_pedido!='CONCLUIDO'">
 								<p-button ><i class="pi pi-fw pi-check-square" style="margin-right:8px ;"> </i>concluir</p-button>
-                <!-- <br> -->
-                <button pButton  class="p-button-secondary " (click)="openMessageBox(pedido)" ><i class="pi pi-fw  pi-envelope"> </i></button>
+                <button pButton  class="p-button-secondary " (click)="sendMessage.openMessageBox(pedido.cliente)" ><i class="pi pi-fw  pi-envelope"> </i></button>
 
 							</div>
 						</div>
@@ -94,33 +93,9 @@
 				</ng-template>
 
       </p-dataView>
-    <!-- </div> -->
 
-      <p-dialog [(visible)]="dialogVisisble" [header]="'Escrever mensagem para '+getPrimeiroNome(pedidoSeleccionado.cliente.nome)"
-      [style]="{width: '40vw'}" position="center" [breakpoints]="{'960px': '75vw'}"  showEffect="fade">
+      <app-send-message #sendMessage ></app-send-message>
 
-        <div class="grid">
-          <div class="col-12">
-
-            <div class="col-12">
-        <textarea rows="3" [cols]=" layoutService.isDesktop()? '55': '30'" placeholder="Mensagem" pInputTextarea></textarea>
-            </div>
-
-          <div style="margin-left:12px ;">
-            <div class="field-checkbox">
-              <p-checkbox name="group1" value="Marcar pedido como concluido" ></p-checkbox>
-              <label for="ny">Marcar pedido como concluído</label>
-            </div>
-
-           <button pButton  class="p-button-secondary " [draggable]="true" (click)="sendMessage()">
-            <i class="pi pi-fw  pi-send"></i> Enviar
-          </button>
-        </div>
-
-        </div>
-     </div>
-
-      </p-dialog>
     </div>
   </div>
 </div>

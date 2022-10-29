@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppListaPedidosComponent } from './app-lista-pedidos/app.lista.pedidos.component';
+import { AppOrderListComponent } from './app-order-list/app-order-list.component';
 import { PrimengModule } from '../shared/primeng/primeng.module';
-import { AppNovoPedidoFormComponent } from './app-novo-pedido-form/app-novo-pedido-form.component';
+import { AppNewOrderFormComponent } from './app-new-order/app-new-order-form.component';
 
 import { MessageModule } from 'primeng/message';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppSendMessageComponent } from './app-send-message/app-send-message.component';
+
 
 
 
 @NgModule({
   declarations: [
-    AppListaPedidosComponent,
-    AppNovoPedidoFormComponent
+    AppOrderListComponent,
+    AppNewOrderFormComponent,
+    AppSendMessageComponent,
   ],
   imports: [
     FormsModule,
@@ -27,4 +30,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
   ]
 })
-export class PedidosModule { }
+export class OrdersModule { }

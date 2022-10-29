@@ -1,5 +1,5 @@
 
-<!-- <form (ngSubmit)="submitPedido()"> -->
+<form (ngSubmit)="submitWorker()" [formGroup]="funcionarioForm">
 <div class="grid">
 
   <div class="col-12 ">
@@ -7,38 +7,62 @@
 
       <div class="p-fluid">
 			<h5>{{tittle}}</h5>
-			<div class="field">
-				<label htmlFor="name1">Número de telefone</label>
-				<input pInputText id="name1" type="text" [(ngModel)]="funcionario.telefone"/>
-			</div>
+
 			<div class="field" >
-				<label htmlFor="email1">Nome</label>
-				<input pInputText id="email1" type="text" [(ngModel)]="funcionario.nome" />
-
-        <small>Enter your username to reset your password.</small>
+				<label >Nome</label>
+				<input pInputText type="text" formControlName="nome"  />
+        <small *ngIf="funcionarioForm.get('nome')?.errors?.['required'] &&
+        (funcionarioForm.get('nome')?.touched ||funcionarioForm.get('nome')?.dirty)" >O nome é obrigatório.</small>
 			</div>
+
       <div class="field" >
-				<label htmlFor="sobrenome">Sobrenome</label>
-				<input pInputText id="sobrenome" type="text" [(ngModel)]="funcionario.sobrenome"  />
-
-        <small>Enter your username to reset your password.</small>
+				<label >Sobrenome</label>
+				<input pInputText formControlName="sobrenome" />
+        <small *ngIf="funcionarioForm.get('sobrenome')?.errors?.['sobrenome'] &&
+        (funcionarioForm.get('sobrenome')?.touched ||funcionarioForm.get('sobrenome')?.dirty)" >O sobrenome é obrigatório.</small>
 			</div>
+
+      <div class="field">
+				<label >Número de telefone</label>
+				<input pInputText  type="text" formControlName="telefone"/>
+
+        <div *ngIf="funcionarioForm.get('telefone')?.errors &&
+        (funcionarioForm.get('telefone')?.touched ||funcionarioForm.get('telefone')?.dirty)">
+
+        <small *ngIf="funcionarioForm.get('telefone')?.errors?.['required'] " >O número de telefone é obrigatório.</small>
+        <small *ngIf="funcionarioForm.get('telefone')?.errors?.['phoneNumber'] &&
+        !funcionarioForm.get('telefone')?.errors?.['required']" >O número de telefone está inválido.</small>
+
+			</div>
+      </div>
+
+      <div class="field" *ngIf="!isEditing()" >
+				<label >Palavra-passe</label>
+				<input pInputText formControlName="password" />
+
+        <small *ngIf="funcionarioForm.get('password')?.errors?.['required']
+        &&
+        (funcionarioForm.get('password')?.touched ||funcionarioForm.get('password')?.dirty)" >
+
+        A Palavra-passe é obrigatório.</small>
+
+        <small *ngIf="funcionarioForm.get('password')?.errors?.['minlength'] &&
+        !funcionarioForm.get('password')?.errors?.['required']" >A Palavra-passe deve ter no minimo 6 caracteres.</small>
+      </div>
 
       <div class="field" >
 				<label htmlFor="cargo">Cargo</label>
-
-			<p-dropdown [options]="['S','B']"  placeholder="Seleccione o cargo" ></p-dropdown>
+			<p-dropdown [options]="cargos" optionLabel="descricao"
+       optionValue="id" placeholder="Seleccione o cargo" formControlName="cargo_id" ></p-dropdown>
 
 			</div>
 
-      <!-- [(ngModel)]="selectedDrop" -->
     </div>
 
-
-    <!-- ver artigo open closed-->
-    <button pButton label="Guardar"></button>
+    <button pButton label="Guardar" type="submit"  [disabled]="funcionarioForm.invalid"></button>
 		</div>
 
+    <p-toast key="tst"></p-toast>
 
 	</div>
 
@@ -46,4 +70,4 @@
 </div>
 
 
-<!-- </form> -->
+</form>

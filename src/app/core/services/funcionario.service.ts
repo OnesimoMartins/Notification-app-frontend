@@ -11,13 +11,25 @@ import { Funcionario } from '../models/funcionario.model';
 })
 export class WorkerService {
 
-  url=environment.apiUrl+'funcionarios'
+
+  url=environment.apiUrl+'funcionarios/'
 
   constructor(private http:HttpClient) { }
 
 
+
   updateWorkerPassword(passwordChange:any){
     console.log(passwordChange);
+  }
+
+  createUpdateFuncionario(funcionario:Funcionario,id?:any) {
+   return id? this.updateFuncionario(funcionario,id): this.http.post<Funcionario>(this.url,funcionario);
+  }
+
+  private updateFuncionario(funcionario:Funcionario,id:any){
+    const url= this.url+id
+  return this. http.put<Funcionario>(url,funcionario)
+
   }
 
   getFuncionarios(page:Number,size:Number):Observable<FuncionarioPage>{
@@ -39,6 +51,6 @@ export class WorkerService {
   }
 
   getFuncionario(id:any):Observable<Funcionario>{
-    return this.http.get<Funcionario>(this.url+"/"+id);
+    return this.http.get<Funcionario>(this.url+id);
   }
 }

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { PedidosModule } from './pedidos/pedidos.module';
+import { OrdersModule } from './pedidos/orders.module';
 import { AppHttpInterceptor } from './core/interceptors/http.interceptor';
 import { SecurityModule } from './security/security.module';
 import { WorkersModule } from './workers/workers.module';
@@ -22,7 +22,7 @@ import { WorkersModule } from './workers/workers.module';
     BrowserModule,
     SharedModule,
     SecurityModule,
-    PedidosModule,
+    OrdersModule,
     WorkersModule,
     HttpClientModule,
     AppRoutingModule,

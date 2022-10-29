@@ -5,13 +5,14 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppWorkerFormComponent } from './app-worker-form/app-worker-form.component';
 import { AppProfileComponent } from './app-profile/app-profile.component';
-import { AppListaFuncionariosComponent } from './app-workers-list/app-lista-funcionarios.component';
+import { AppWorkerListComponent } from './app-workers-list/app-worker-list.component';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
   declarations: [
     AppProfileComponent,
-    AppListaFuncionariosComponent,
+    AppWorkerListComponent,
     AppWorkerFormComponent
   ],
   imports: [
@@ -21,6 +22,7 @@ import { AppListaFuncionariosComponent } from './app-workers-list/app-lista-func
     FormsModule,
     CommonModule,
     RouterModule
-  ]
+  ],
+  providers:[MessageService]
 })
 export class WorkersModule { }

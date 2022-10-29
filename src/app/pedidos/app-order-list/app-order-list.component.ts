@@ -12,10 +12,10 @@ import { Subject,  map, debounceTime } from 'rxjs';
 import { PedidoFilter } from 'src/app/core/models/pedido.filter.model';
 
 @Component({
-  selector: 'app-lista-pedidos',
-  templateUrl: './app.lista.pedidos.component.html',
+  selector: 'app-order-list',
+  templateUrl: './app-order-list.component.html',
 })
-export class AppListaPedidosComponent implements OnInit {
+export class AppOrderListComponent implements OnInit {
   dialogVisisble = false;
   pedidoSeleccionado = new Pedido();
 
@@ -36,7 +36,6 @@ export class AppListaPedidosComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private primeNgConfig: PrimeNGConfig,
-    public layoutService: LayoutService,
     public loader: LoaderService
   ) {}
 
@@ -46,13 +45,10 @@ export class AppListaPedidosComponent implements OnInit {
 
     this.searchSubject .asObservable().pipe(
         debounceTime(1300),map(pageEvent => this.paging(pageEvent))
-        ).subscribe(()=>{
-          // this.pedidoFilter.nome=''
-          // this.pedidoFilter.telefone=''
-        });
+        ).subscribe();
 
 
-    this.loader.isLoading().asObservable().subscribe(it => (this.isLoading = it));
+    this.loader.isLoading().asObservable().subscribe(it => this.isLoading = it);
     this.primeNgConfig.ripple = true;
     this.updatePedidoFilter();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -81,11 +77,7 @@ export class AppListaPedidosComponent implements OnInit {
   }
 }
 
-  openMessageBox(pedido: Pedido) {
-    this.dialogVisisble = true;
-    this.pedidoSeleccionado = pedido;
-    console.log(this.pedidoSeleccionado);
-  }
+
 
   private updatePedidoFilter() {
     const type = this.activatedRoute.snapshot.paramMap.get('type');
@@ -115,11 +107,6 @@ export class AppListaPedidosComponent implements OnInit {
 
   }
 
-  getPrimeiroNome(nomeCompleto: String) {
-    return nomeCompleto.split(' ')[0];
-  }
 
-  sendMessage() {
-    this.dialogVisisble = false;
-  }
+
 }

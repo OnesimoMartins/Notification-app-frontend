@@ -3,8 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
-// import { AuthenticationService } from 'src/app/core/services/authentication.service';
-import { PhoneNumberValidator } from 'src/app/core/validators/phone.validator';
+import { phoneNumber } from 'src/app/core/validators/phone.validator';
 
 @Component({
   selector: 'app-app-login',
@@ -18,7 +17,7 @@ export class AppLoginComponent {
 
 
   formLogin=new FormGroup({
-    username:new FormControl("",[PhoneNumberValidator]),
+    username:new FormControl("",[phoneNumber]),
     password:new FormControl("",[Validators.required])
 
   })
@@ -28,7 +27,6 @@ export class AppLoginComponent {
     if(this.formLogin.valid){
       this.authService.login(this.formLogin.value).subscribe({
       complete:()=>{
-        // this.reloadPage()
         this.router.navigateByUrl("/home")
       },
       error:()=>{
@@ -47,10 +45,6 @@ export class AppLoginComponent {
       ,detail:"informe uma palavra-passe.",life:5000})
     }
 
-  }
-
-  private reloadPage(){
-    window.location.reload()
   }
 
 }
