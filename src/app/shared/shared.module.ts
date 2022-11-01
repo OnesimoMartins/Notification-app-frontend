@@ -31,6 +31,6 @@ import { AppConfirmationBoxComponent } from './app-confirmation-box/app-confirma
         PrimengModule,
         RouterModule,
   ],
-  exports:[LayoutComponent]
+  exports:[LayoutComponent,AppConfirmationBoxComponent]
 })
 export class SharedModule { }

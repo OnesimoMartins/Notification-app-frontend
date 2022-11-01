@@ -107,6 +107,15 @@ export class AppOrderListComponent implements OnInit {
 
   }
 
+  onFinishOrder(){
+    console.log("finalizando pedido...");
+  }
+
+  afterFinshOrder(){
+    console.log("pedido finalizado com sucesso!");
+
+  }
+
 
 
 }

@@ -11,7 +11,7 @@
 
       <div class="field">
 				<label >Número de telefone do cliente</label>
-				<input pInputText  type="text" formControlName="numero" (input)="getCliente()" />
+				<input pInputText  type="text" formControlName="numero"  />
 
         <small *ngIf="pedidoForm.controls['numero'].hasError('required')
         && pedidoForm.controls['numero'].touched" >O número de telefone é obrigatório</small>
@@ -34,11 +34,11 @@
 			<div class="formgroup-inline">
 
         <div class="field ">
-					<label htmlFor="firstname1" class="p-sr-only">Firstname</label>
-					<input pInputText id="firstname1" type="text" placeholder="Descrição" #item/>
+					<label  class="p-sr-only">Firstname</label>
+					<input pInputText  type="text" placeholder="Descrição" #item/>
 				</div>
 
-				<button pButton label="Adicionar" (click)="addItem(item.value)" type="button" [disabled]="!item.value"
+				<button pButton label="Adicionar" (click)="addItem(item)" type="button" [disabled]="!item.value"
         class="p-button-secondary"
         ></button>
 			</div>

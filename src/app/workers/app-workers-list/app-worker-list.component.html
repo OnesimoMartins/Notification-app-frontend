@@ -64,18 +64,32 @@
 							<div class="flex align-items-center justify-content-between">
 								<a pButton [routerLink]="'/funcionarios/'+funcionario.id"> <i class="pi pi-fw pi-user-edit"></i>  </a>
 
-                <button pButton  style="margin-left: 8px;" class="p-button-secondary ">
-                  <i class="pi pi-fw pi-lock"></i>
+                <button pButton  style="margin-left: 8px;" class="p-button-secondary "
+                (click)="
+                setFuncionarioId(funcionario.id);
+                confirmationBox.openComfirmPopUp($event,'Deseja bloquear este funcionário?',onBlockFuncionario)" >
+                  <i class="pi pi-fw pi-lock" ></i>
                 </button>
-                <button pButton  style="margin-left: 8px;" class="p-button-danger ">
-                  <i class="pi pi-fw pi-trash"></i>
+
+                <button pButton  style="margin-left: 8px;" class="p-button-danger"
+                (click)="
+                setFuncionarioId(funcionario.id);
+                confirmationBox.openComfirmPopUp($event,'Deseja elimminar este funcionário? esta operação é irreverssível.'
+                ,onDeleteFuncionario)" >
+
+                <i class="pi pi-fw pi-trash"></i>
                 </button>
 
 							</div>
 						</div>
 					</div>
 				</ng-template>
+
+        <app-confirmation-box #confirmationBox (afterAccept)="refreshList()"></app-confirmation-box>
+
       </p-dataView>
+
+
 
     </div>
   </div>

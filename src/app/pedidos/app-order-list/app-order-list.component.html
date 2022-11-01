@@ -84,13 +84,21 @@
 
 							</div>
 							<div class="flex align-items-center justify-content-between" *ngIf="pedido.status_pedido!='CONCLUIDO'">
-								<p-button ><i class="pi pi-fw pi-check-square" style="margin-right:8px ;"> </i>concluir</p-button>
+
+                <p-button
+               (onClick)=" confirmationBox.openComfirmPopUp($event,'Deseja realmente finalizar este pedido?'
+                ,onFinishOrder)" >
+
+                  <i class="pi pi-fw pi-check-square" style="margin-right:8px ;"> </i>concluir</p-button>
+
                 <button pButton  class="p-button-secondary " (click)="sendMessage.openMessageBox(pedido.cliente)" ><i class="pi pi-fw  pi-envelope"> </i></button>
 
 							</div>
 						</div>
 					</div>
 				</ng-template>
+
+        <app-confirmation-box #confirmationBox (afterAccept)="afterFinshOrder()"></app-confirmation-box>
 
       </p-dataView>
 

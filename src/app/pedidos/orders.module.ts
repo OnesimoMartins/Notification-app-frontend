@@ -9,6 +9,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppSendMessageComponent } from './app-send-message/app-send-message.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -26,6 +27,7 @@ import { AppSendMessageComponent } from './app-send-message/app-send-message.com
     ProgressBarModule,
     ReactiveFormsModule,
     CommonModule,
+    SharedModule,
     PrimengModule
 
   ]

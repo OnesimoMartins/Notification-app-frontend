@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FuncionarioPage } from 'src/app/core/models/funcionario.page.model';
-import { WorkerService } from 'src/app/core/services/funcionario.service';
+import { FuncionarioService } from 'src/app/core/services/funcionario.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 
 @Component({
@@ -13,13 +13,12 @@ export class AppWorkerListComponent implements OnInit {
   totalRecords=6
   isLoading: boolean = false;
 
-  constructor(private funcionarioService:WorkerService
+  constructor(private funcionarioService:FuncionarioService
     ,public loaderService:LoaderService,
     public loader: LoaderService) { }
 
   ngOnInit(): void {
    this.loader.isLoading().asObservable().subscribe(it => this.isLoading = it);
-    this.funcionarioService.getFuncionarios(0,2).subscribe(console.log)
   }
 
   paging(event: any) {
@@ -32,14 +31,28 @@ export class AppWorkerListComponent implements OnInit {
         this.funcionarioPage = it;
         this.totalRecords = it.pageable.totalElements;
 
-        console.log("--------------------------");
-
-        console.log(this.totalRecords);
-
       });
 
   }
 
+
+  refreshList(){
+    console.log("Operacap realizada com sucecesso");
+     console.log("Refreshing the current list");
+  }
+
+  funcionarioId:any
+
+  setFuncionarioId(id:any){
+    this.funcionarioId=id
+  }
+
+  onBlockFuncionario:Function=():void=>{
+    console.log("blockeando funcionario "+this.funcionarioId)
+  }
+  onDeleteFuncionario:Function=(id:Number):void=>{
+    console.log(" Apagando funcionario "+this.funcionarioId)
+  }
 
 
 }

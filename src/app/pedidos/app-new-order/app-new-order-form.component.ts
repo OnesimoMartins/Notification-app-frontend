@@ -1,7 +1,7 @@
-import { Component,OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { ClienteService } from 'src/app/core/services/cliente.service';
+import { PedidoService } from 'src/app/core/services/pedido.service';
 import { phoneNumber } from 'src/app/core/validators/phone.validator';
 
 @Component({
@@ -11,44 +11,37 @@ import { phoneNumber } from 'src/app/core/validators/phone.validator';
 })
 export class AppNewOrderFormComponent {
 
-  constructor(private clienteService:ClienteService
-    ,private messageService:MessageService) { }
+  constructor(private pedidoService:PedidoService
+    ,private messageService:MessageService,
+    private fb:FormBuilder) { }
 
-  pedidoForm=new FormGroup({
-    numero:new FormControl("",[Validators.required,phoneNumber]),
-    nome: new FormControl("",[Validators.required]),
-    itens: new FormControl([])
+  pedidoForm=this.getPedidoForm()
+
+  private getPedidoForm() {
+  return this.fb.group({
+    numero:["",[Validators.required,phoneNumber]],
+    nome: ["",[Validators.required]],
+    itens: this.fb.array([],Validators.minLength(2))
   })
-
-
-
-  addItem(item:string){
-    this.pedidoForm.controls['itens'].value.push(item)
-
-    this.messageService.add({ key: 'tst', severity: 'success', summary: 'Success Message', detail: 'Message sent' });
-
   }
 
-  getCliente(){
 
-    if( this.pedidoForm.controls['numero'].valid){
-
-    this.clienteService.getCliente(  this.pedidoForm.controls['numero'].value).subscribe(it=>{
-      this.pedidoForm.controls['nome'].setValue(it.nome)
-    },
-    ()=>{
-      this.pedidoForm.controls['nome'].setValue("")
-    })
-
-    }
-
+  addItem(input:HTMLInputElement){
+    this.pedidoForm.controls['itens'].value.push(input.value)
+    input.value=''
   }
 
   submitPedido(){
-    console.log(this.pedidoForm);
-      this.messageService.add({ key: 'tst', severity: 'success', summary: 'Success Message', detail: 'Message sent' });
 
-  }
+    this.pedidoService.createPedido(this.pedidoForm.value).subscribe(it=>{
+      this.messageService.add({ key: 'tst', severity: 'success', summary: 'Success Message', detail: 'Message sent' })
+      this.pedidoForm=this.getPedidoForm()
+      console.log(it);
+
+    });
+
+
+   }
 
 
 }

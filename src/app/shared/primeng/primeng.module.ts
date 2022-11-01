@@ -15,12 +15,14 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog'
 import {CheckboxModule } from 'primeng/checkbox'
 import {DividerModule } from 'primeng/divider'
+import {ConfirmPopupModule } from 'primeng/confirmpopup'
 import { InputTextareaModule } from 'primeng/inputtextarea'
 import { MessagesModule } from 'primeng/messages'
 
 
 @NgModule({
   exports: [
+    ConfirmPopupModule,
     MessagesModule,
     DividerModule,
     CheckboxModule,

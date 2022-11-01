@@ -5,11 +5,12 @@ import {Observable,map} from 'rxjs'
 import { HttpClient } from '@angular/common/http';
 import { Page } from '../models/page.model';
 import { Funcionario } from '../models/funcionario.model';
+import { FuncionarioInput } from '../models/funcionario.input.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkerService {
+export class FuncionarioService {
 
 
   url=environment.apiUrl+'funcionarios/'
@@ -17,16 +18,16 @@ export class WorkerService {
   constructor(private http:HttpClient) { }
 
 
-
-  updateWorkerPassword(passwordChange:any){
-    console.log(passwordChange);
+  updateWorkerPassword(passwordChange:any,id:any){
+    const url=`${this.url+id}/alterar-password`
+    return this.http.put(url,passwordChange)
   }
 
-  createUpdateFuncionario(funcionario:Funcionario,id?:any) {
+  createUpdateFuncionario(funcionario:FuncionarioInput,id?:any) {
    return id? this.updateFuncionario(funcionario,id): this.http.post<Funcionario>(this.url,funcionario);
   }
 
-  private updateFuncionario(funcionario:Funcionario,id:any){
+  private updateFuncionario(funcionario:FuncionarioInput,id:any){
     const url= this.url+id
   return this. http.put<Funcionario>(url,funcionario)
 

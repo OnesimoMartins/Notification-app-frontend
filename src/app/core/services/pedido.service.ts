@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Page } from '../models/page.model';
+import { Pedido } from '../models/pedido.model';
 import { PedidoPage } from '../models/pedido.page.model';
 
 @Injectable({
@@ -13,6 +14,11 @@ export class PedidoService {
  private url=environment.apiUrl+'pedidos'
 
   constructor(private http:HttpClient) {}
+
+
+   createPedido(order:any){
+    return this.http.post<Pedido>(this.url,order)
+   }
 
    getPedidos(page:Number,size:Number,
     {telefone,nome,status}:{telefone?:String,nome?:String,status?:String}):Observable<PedidoPage>{

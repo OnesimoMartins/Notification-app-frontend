@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppWorkerFormComponent } from './app-worker-form/app-worker-form.component';
 import { AppProfileComponent } from './app-profile/app-profile.component';
 import { AppWorkerListComponent } from './app-workers-list/app-worker-list.component';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,12 +18,13 @@ import { MessageService } from 'primeng/api';
   ],
   imports: [
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     PrimengModule,
     FormsModule,
     CommonModule,
     RouterModule
   ],
-  providers:[MessageService]
+  providers:[MessageService,ConfirmationService]
 })
 export class WorkersModule { }

@@ -1,4 +1,5 @@
 import { Cargo } from "./cargo.model"
+import { FuncionarioInput } from "./funcionario.input.model"
 
 export class Funcionario{
   id!: Number
@@ -6,4 +7,28 @@ export class Funcionario{
   nome:string=''
   sobrenome:string=''
   cargo:Cargo=new Cargo()
+
+  static fromJSON(json:any):Funcionario{
+
+    console.log(json);
+
+    const funcionario= new Funcionario()
+
+    funcionario.cargo=json.cargo ?? ''
+    funcionario.id=json.id ?? null
+    funcionario.nome=json.nome ?? ''
+    funcionario.sobrenome=json.sobrenome?? ''
+    funcionario.telefone=json.telefone?? ''
+
+    return funcionario;
+  }
+
+  asFuncionarioInput():FuncionarioInput{
+    return {
+      nome:this.nome,
+      sobrenome:this.sobrenome,
+      cargo_id:this.cargo.id,
+      telefone:this.telefone
+    }
+  }
 }

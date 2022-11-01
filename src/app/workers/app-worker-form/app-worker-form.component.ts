@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 import { Cargo } from 'src/app/core/models/cargo.model';
 import { Funcionario } from 'src/app/core/models/funcionario.model';
 import { CargoService } from 'src/app/core/services/cargo.service';
-import { WorkerService } from 'src/app/core/services/funcionario.service';
+import { FuncionarioService } from 'src/app/core/services/funcionario.service';
 import { phoneNumber } from 'src/app/core/validators/phone.validator';
 
 @Component({
@@ -17,7 +17,7 @@ export class AppWorkerFormComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private funcionarioService: WorkerService,
+    private funcionarioService: FuncionarioService,
     private messageService:MessageService,
     private cargoService:CargoService,
     private fb:FormBuilder,

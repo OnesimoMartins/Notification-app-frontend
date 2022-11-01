@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Cliente from 'src/app/core/models/cliente.model';
 import { LayoutService } from 'src/app/shared/layout/services/layout.service';
 
@@ -8,8 +8,6 @@ import { LayoutService } from 'src/app/shared/layout/services/layout.service';
 })
 export class AppSendMessageComponent implements OnInit {
 
-
-  @Input("isVisible")
   isVisible:boolean=false
 
   cliente:Cliente=new Cliente()
@@ -19,12 +17,9 @@ export class AppSendMessageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   openMessageBox(cliente:Cliente){
     this.isVisible=true
-    console.log(cliente);
     this.cliente=cliente
-
   }
 
   getPrimeiroNome(nomeCompleto: String) {

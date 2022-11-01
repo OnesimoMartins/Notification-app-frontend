@@ -5,6 +5,7 @@ import { Login } from '../models/login.model';
 import { Observable,map,of,throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TokenResponse } from '../models/token.response.model';
+import { LoggedUser } from '../models/loged.user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -85,4 +86,13 @@ export class AuthService {
     this.clearTokens()
     return of(true)
   }
+
+  getLoggedUser():LoggedUser{
+   const decodedToken= this.jwtHelper.decodeToken(this.getAccessToken())
+   const loggedUser=new LoggedUser()
+   loggedUser.authorities= decodedToken.authorities
+   loggedUser.id=decodedToken.id
+   return loggedUser
+  }
+
 }
