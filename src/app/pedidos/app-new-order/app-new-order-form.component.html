@@ -22,8 +22,8 @@
 
 			</div>
 			<div class="field" >
-				<label htmlFor="email1">Nome do cliente</label>
-				<input pInputText id="email1" type="text" formControlName="nome" />
+				<label >Nome do cliente</label>
+				<input pInputText type="text" formControlName="nome" />
         <small *ngIf="pedidoForm.controls['nome'].hasError('required')
         && pedidoForm.controls['nome'].touched" >O nome do cliente é obrigatório.</small>
 			</div>
@@ -34,7 +34,6 @@
 			<div class="formgroup-inline">
 
         <div class="field ">
-					<label  class="p-sr-only">Firstname</label>
 					<input pInputText  type="text" placeholder="Descrição" #item/>
 				</div>
 

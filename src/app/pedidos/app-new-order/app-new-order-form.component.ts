@@ -32,14 +32,10 @@ export class AppNewOrderFormComponent {
   }
 
   submitPedido(){
-
-    this.pedidoService.createPedido(this.pedidoForm.value).subscribe(it=>{
-      this.messageService.add({ key: 'tst', severity: 'success', summary: 'Success Message', detail: 'Message sent' })
+    this.pedidoService.createPedido(this.pedidoForm.value).subscribe(()=>{
+      this.messageService.add({ key: 'tst', severity: 'success', summary: 'Pedido criado'})
       this.pedidoForm=this.getPedidoForm()
-      console.log(it);
-
     });
-
 
    }
 
