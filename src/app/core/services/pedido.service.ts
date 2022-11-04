@@ -20,6 +20,14 @@ export class PedidoService {
     return this.http.post<Pedido>(this.url,order)
    }
 
+   confirmPedido(id:any,sendMessage:boolean){
+
+    const url=`${this.url}/${id}/concluir?notificar=${sendMessage}`
+
+    return this.http.put(url,{})
+
+   }
+
    getPedidos(page:Number,size:Number,
     {telefone,nome,status}:{telefone?:String,nome?:String,status?:String}):Observable<PedidoPage>{
 
@@ -38,14 +46,9 @@ export class PedidoService {
 
     return this.http.get<any>(url).pipe(
       map(it=>{
-
-        console.log(it);
-
-
         const pedidoPage=new PedidoPage()
         pedidoPage.content=it.content
         pedidoPage.pageable= new Page(it.totalElements,it.totalPages,it.size,it.number)
-
         return pedidoPage
     })
     )

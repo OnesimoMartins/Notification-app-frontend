@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { MessageService } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { IsTextWithoutSymbols, ValidNumber } from 'src/app/core/algorithms/validations.algorithm';
+import { FuncionarioFilter } from 'src/app/core/models/funcionario.filter';
 import { FuncionarioPage } from 'src/app/core/models/funcionario.page.model';
 import { FuncionarioService } from 'src/app/core/services/funcionario.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
@@ -11,48 +16,96 @@ export class AppWorkerListComponent implements OnInit {
 
   funcionarioPage:FuncionarioPage=new FuncionarioPage()
   totalRecords=6
+  funcionarioId:any
   isLoading: boolean = false;
+  funcionarioFilter=new FuncionarioFilter()
+  searchSubject = new Subject<any>();
 
-  constructor(private funcionarioService:FuncionarioService
-    ,public loaderService:LoaderService,
-    public loader: LoaderService) { }
+  constructor(private funcionarioService:FuncionarioService,
+    private messageService:MessageService,
+    public loaderService:LoaderService,
+    public loader: LoaderService,
+    private tittle:Title) { }
 
   ngOnInit(): void {
    this.loader.isLoading().asObservable().subscribe(it => this.isLoading = it);
+   this.tittle.setTitle('Shoes clean | Funcionários');
   }
 
   paging(event: any) {
-
     const page=isNaN(event.first / 6)?0:event.first / 6
-
-      this.funcionarioService
-      .getFuncionarios(page, 6)
-      .subscribe((it) => {
-        this.funcionarioPage = it;
-        this.totalRecords = it.pageable.totalElements;
-
-      });
-
+    this.getFuncionarios(page)
   }
-
-
-  refreshList(){
-    console.log("Operacap realizada com sucecesso");
-     console.log("Refreshing the current list");
-  }
-
-  funcionarioId:any
 
   setFuncionarioId(id:any){
     this.funcionarioId=id
   }
 
-  onBlockFuncionario:Function=():void=>{
-    console.log("blockeando funcionario "+this.funcionarioId)
+
+
+  private getFuncionarios(page:any){
+    this.funcionarioService.getFuncionarios(page, 6).subscribe(it =>this.fillFuncionarioPage(it));
   }
-  onDeleteFuncionario:Function=(id:Number):void=>{
-    console.log(" Apagando funcionario "+this.funcionarioId)
+
+  private fillFuncionarioPage(funcinarioPage:FuncionarioPage){
+    this.funcionarioPage=funcinarioPage
+    this.totalRecords=funcinarioPage.pageable.totalElements
   }
+
+  handleLockFuncionario:Function=():void=>{
+
+    if(this.funcionarioPage.content.find(it=>it.id==this.funcionarioId)?.is_bloqueado){
+
+    this.funcionarioService.unlockFuncionario(this.funcionarioId).subscribe((it)=>{
+
+      // update the status of funcionario in current array
+      const index=this.funcionarioPage.content.findIndex(f=>f.id==it.id)
+
+      this.funcionarioPage.content[index]=it
+
+      this.messageService.add({
+        closable:true,
+        life:7000,
+        summary:"Funcionário desbloaquado com sucesso",
+        key:'tst',
+        severity:'success'})
+
+    })
+
+  }
+
+else{
+
+  this.funcionarioService.lockFuncionario(this.funcionarioId).subscribe(it=>{
+      // update the status of funcionario in current array
+      const index=this.funcionarioPage.content.findIndex(f=>f.id==it.id)
+      this.funcionarioPage.content[index]=it
+
+      this.messageService.add({
+        closable:true,
+        life:7000,
+        summary:"Funcionário bloqueado com sucesso",
+        key:'tst',
+        severity:'warn'})
+      })
+
+   }
+
+}
+
+  onDeleteFuncionario:Function=():void=>{
+    this.funcionarioService.deleteFuncionario(this.funcionarioId).subscribe( ()=>{
+
+      this.funcionarioService.getFuncionarios(0,6).subscribe((it)=>{
+        this.fillFuncionarioPage(it)
+        this.messageService.add({closable:true,life:7000,
+          summary:"Funcionário eliminado com sucesso",key:'tst',severity:'success'})
+
+      })
+   })
+
+  }
+
 
 
 }

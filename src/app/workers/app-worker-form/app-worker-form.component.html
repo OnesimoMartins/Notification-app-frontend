@@ -18,7 +18,7 @@
       <div class="field" >
 				<label >Sobrenome</label>
 				<input pInputText formControlName="sobrenome" />
-        <small *ngIf="funcionarioForm.get('sobrenome')?.errors?.['sobrenome'] &&
+        <small *ngIf="funcionarioForm.get('sobrenome')?.errors?.['required'] &&
         (funcionarioForm.get('sobrenome')?.touched ||funcionarioForm.get('sobrenome')?.dirty)" >O sobrenome é obrigatório.</small>
 			</div>
 

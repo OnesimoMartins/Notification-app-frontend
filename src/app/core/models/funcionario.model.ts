@@ -6,6 +6,7 @@ export class Funcionario{
   telefone:string=''
   nome:string=''
   sobrenome:string=''
+  is_bloqueado:boolean=false
   cargo:Cargo=new Cargo()
 
   static fromJSON(json:any):Funcionario{
@@ -19,6 +20,7 @@ export class Funcionario{
     funcionario.nome=json.nome ?? ''
     funcionario.sobrenome=json.sobrenome?? ''
     funcionario.telefone=json.telefone?? ''
+    funcionario.is_bloqueado=json.is_bloqueado
 
     return funcionario;
   }

@@ -1,34 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import {IsTextWithoutSymbols, ValidNumber,}from 'src/app/core/algorithms/validations.algorithm';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { PedidoPage } from 'src/app/core/models/pedido.page.model';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { PedidoService } from 'src/app/core/services/pedido.service';
-import { LayoutService } from 'src/app/shared/layout/services/layout.service';
 import { Subject,  map, debounceTime } from 'rxjs';
-import { PedidoFilter } from 'src/app/core/models/pedido.filter.model';
+import { PedidoFilter } from 'src/app/core/models/pedido.filter';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './app-order-list.component.html',
 })
 export class AppOrderListComponent implements OnInit {
+
   dialogVisisble = false;
   pedidoSeleccionado = new Pedido();
-
   searchSubject = new Subject<any>();
-
-
   totalRecords = 6;
   pedidoPage: PedidoPage = new PedidoPage();
   cardTittle = '';
   isLoading: boolean = false;
-
   pedidoFilter!:PedidoFilter
 
+  pedidoIdForConfirmation=12
 
   constructor(
     private pedidoService: PedidoService,
@@ -36,7 +33,8 @@ export class AppOrderListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private primeNgConfig: PrimeNGConfig,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private messageService:MessageService
   ) {}
 
   ngOnInit() {
@@ -53,20 +51,21 @@ export class AppOrderListComponent implements OnInit {
     this.updatePedidoFilter();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.tittle.setTitle('Shoes clean | Pedidos');
+
   }
 
-
-  pesquisarPedido(event: any) {
+  searchPedido(event: any) {
     const text = event.target.value;
 
     if (ValidNumber(text)){
     this.pedidoFilter.telefone=text
       this.searchSubject.next(event);
-    }
+     }
 
     else if (IsTextWithoutSymbols(text)){
       this.pedidoFilter.nome=text
       this.searchSubject.next(event);
+
     }
 
    else if(!text){
@@ -75,9 +74,7 @@ export class AppOrderListComponent implements OnInit {
     this.pedidoFilter.nome=''
     this.paging({first:0})
   }
-}
-
-
+  }
 
   private updatePedidoFilter() {
     const type = this.activatedRoute.snapshot.paramMap.get('type');
@@ -107,13 +104,32 @@ export class AppOrderListComponent implements OnInit {
 
   }
 
-  onFinishOrder(){
-    console.log("finalizando pedido...");
+  onMessageSent(){
+
+  }
+
+  setPedidoId(id:any){
+    this.pedidoIdForConfirmation=id
+   }
+
+ onFinishOrder =()=>{
+  this.pedidoService.confirmPedido(this.pedidoIdForConfirmation,true).subscribe(()=>{
+    const index=this.pedidoPage.content.findIndex(p=>p.id==this.pedidoIdForConfirmation)
+     this.pedidoPage.content.splice(index,1)
+
+  })
   }
 
   afterFinshOrder(){
-    console.log("pedido finalizado com sucesso!");
+     this.showConfirmationSuccess()
+  }
 
+  showConfirmationSuccess(){
+    this.messageService.add({
+      summary:'Pedido pedido confirmado com sucesso',
+      key:'tst',
+      severity:'success'
+    })
   }
 
 

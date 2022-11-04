@@ -19,15 +19,16 @@
       >
 
         <ng-template pTemplate="header">
+
           <div  class="grid grid-nogutter flex-column md:flex-row justify-content-between">
 
             <span class="p-input-icon-left mb-2 md:mb-0">
               <i class="pi pi-search"></i>
-              <input type="search"  pInputText placeholder="Procurar" (keyup)="pesquisarPedido($event)" />
+              <input type="search"  pInputText placeholder="Pesquisar pelo cliente" (keyup)="searchPedido($event)" />
             </span>
 
-            <p>Apresentando pedidos de </p>
           </div>
+
         </ng-template>
 
 
@@ -86,15 +87,16 @@
 							<div class="flex align-items-center justify-content-between" *ngIf="pedido.status_pedido!='CONCLUIDO'">
 
                 <p-button
-               (onClick)=" confirmationBox.openComfirmPopUp($event,'Deseja realmente finalizar este pedido?'
-                ,onFinishOrder)" >
+               (onClick)="setPedidoId(pedido.id);
+                confirmationBox.openComfirmPopUp($event,'Deseja realmente finalizar este pedido?',onFinishOrder)" >
 
-                  <i class="pi pi-fw pi-check-square" style="margin-right:8px ;"> </i>concluir</p-button>
+               <i class="pi pi-fw pi-check-square" style="margin-right:8px ;"> </i>concluir</p-button>
 
                 <button pButton  class="p-button-secondary " (click)="sendMessage.openMessageBox(pedido.cliente)" ><i class="pi pi-fw  pi-envelope"> </i></button>
 
 							</div>
 						</div>
+            <p-toast key="tst"></p-toast>
 					</div>
 				</ng-template>
 
@@ -102,7 +104,7 @@
 
       </p-dataView>
 
-      <app-send-message #sendMessage ></app-send-message>
+      <app-send-message #sendMessage (onMessageSent)="onMessageSent()" ></app-send-message>
 
     </div>
   </div>

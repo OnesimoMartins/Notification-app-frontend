@@ -18,17 +18,17 @@
 
       >
 
-        <ng-template pTemplate="header">
-          <div  class="grid grid-nogutter flex-column md:flex-row justify-content-between">
+        <!-- <ng-template pTemplate="header"> -->
+          <!-- <div  class="grid grid-nogutter flex-column md:flex-row justify-content-between">
 
             <span class="p-input-icon-left mb-2 md:mb-0">
               <i class="pi pi-search"></i>
               <input type="search" pInputText placeholder="Nome do cliente" />
             </span>
 
-            <p>Apresentando pedidos de </p>
-          </div>
-        </ng-template>
+            <p>Apresentando resultados da pesquisa por ' ' </p>
+          </div> -->
+        <!-- </ng-template> -->
 
 
         <ng-template let-funcionario pTemplate="gridItem">
@@ -67,8 +67,8 @@
                 <button pButton  style="margin-left: 8px;" class="p-button-secondary "
                 (click)="
                 setFuncionarioId(funcionario.id);
-                confirmationBox.openComfirmPopUp($event,'Deseja bloquear este funcionário?',onBlockFuncionario)" >
-                  <i class="pi pi-fw pi-lock" ></i>
+                confirmationBox.openComfirmPopUp($event,'Deseja bloquear este funcionário?',handleLockFuncionario)" >
+                  <i class="pi pi-fw" [ngClass]=" { 'pi-lock-open':funcionario.is_bloqueado , 'pi-lock':!funcionario.is_bloqueado } " ></i>
                 </button>
 
                 <button pButton  style="margin-left: 8px;" class="p-button-danger"
@@ -81,11 +81,15 @@
                 </button>
 
 							</div>
+
 						</div>
 					</div>
+          <p-toast key="tst"></p-toast>
 				</ng-template>
 
-        <app-confirmation-box #confirmationBox (afterAccept)="refreshList()"></app-confirmation-box>
+
+
+        <app-confirmation-box #confirmationBox ></app-confirmation-box>
 
       </p-dataView>
 
