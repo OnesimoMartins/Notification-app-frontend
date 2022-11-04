@@ -14,6 +14,14 @@ export class ClienteService {
 
   getCliente(id:string):Observable<Cliente>{
     return this.http.get<Cliente>(`${this.baseUrl}/${id}`)
+  }
+
+  sendMessage(phone:string,body:string):Observable<any>{
+
+    return this.http.post<any>(`${this.baseUrl}/mensagem`,{
+      numero:phone,
+      corpo:body
+    })
 
   }
 }

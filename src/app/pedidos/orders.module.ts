@@ -10,15 +10,14 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppSendMessageComponent } from './app-send-message/app-send-message.component';
 import { SharedModule } from '../shared/shared.module';
-
-
-
+import { FirstNamePipe } from '../core/pipes/first-name.pipe';
 
 @NgModule({
   declarations: [
     AppOrderListComponent,
     AppNewOrderFormComponent,
     AppSendMessageComponent,
+    FirstNamePipe
   ],
   imports: [
     FormsModule,
@@ -28,8 +27,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     CommonModule,
     SharedModule,
-    PrimengModule
-
+    PrimengModule,
   ]
 })
 export class OrdersModule { }

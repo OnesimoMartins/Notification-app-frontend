@@ -11,12 +11,15 @@ import { OrdersModule } from './pedidos/orders.module';
 import { AppHttpInterceptor } from './core/interceptors/http.interceptor';
 import { SecurityModule } from './security/security.module';
 import { WorkersModule } from './workers/workers.module';
+import { FirstNamePipe } from './core/pipes/first-name.pipe';
 
 
 @NgModule({
   declarations: [
-    AppComponent
-
+    AppComponent,
+    // FirstNamePipe
+  ],
+  exports:[//FirstNamePipe
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,6 @@ import { WorkersModule } from './workers/workers.module';
     FormsModule,
     AppRoutingModule,
     HttpClientModule
-
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:AppHttpInterceptor,multi:true}

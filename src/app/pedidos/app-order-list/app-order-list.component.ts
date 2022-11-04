@@ -105,7 +105,7 @@ export class AppOrderListComponent implements OnInit {
   }
 
   onMessageSent(){
-
+    this.showConfirmationSuccess("Cliente notificado com sucesso")
   }
 
   setPedidoId(id:any){
@@ -121,13 +121,14 @@ export class AppOrderListComponent implements OnInit {
   }
 
   afterFinshOrder(){
-     this.showConfirmationSuccess()
+     this.showConfirmationSuccess('Pedido confirmado com sucesso')
   }
 
-  showConfirmationSuccess(){
+  showConfirmationSuccess(msg:string){
     this.messageService.add({
-      summary:'Pedido pedido confirmado com sucesso',
+      summary:msg,
       key:'tst',
+      life:6000,
       severity:'success'
     })
   }
