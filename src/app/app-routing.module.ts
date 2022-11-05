@@ -11,6 +11,7 @@ import { AppProfileComponent } from "./workers/app-profile/app-profile.component
 import { AppWorkerListComponent } from "./workers/app-workers-list/app-worker-list.component";
 import { AuthenticationGuard } from "./core/guards/authentication.guard";
 import { LoginGuard } from "./core/guards/login.guard";
+import { AdministradorGuard } from "./core/guards/administrador.guard";
 
 
 const routes:Routes=[
@@ -22,9 +23,9 @@ const routes:Routes=[
     {path:'sobre',component:AppAboutComponent,canActivate:[AuthenticationGuard]},
     {path:'pedidos/novo',component:AppNewOrderFormComponent,canActivate:[AuthenticationGuard]},
     {path:'pedidos/:type',component:AppOrderListComponent,canActivate:[AuthenticationGuard]},
-    {path:'funcionarios',component:AppWorkerListComponent,canActivate:[AuthenticationGuard]},
-    {path:'funcionarios/:id',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard]},
-    {path:'funcionarios/novo',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard]},
+    {path:'funcionarios',component:AppWorkerListComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+    {path:'funcionarios/:id',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+    {path:'funcionarios/novo',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
   ],
   },
   {path:"auth/login",component:AppLoginComponent,canActivate:[LoginGuard]}

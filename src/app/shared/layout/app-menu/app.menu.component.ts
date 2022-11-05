@@ -1,76 +1,104 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { LayoutService } from '../services/layout.service';
 
 @Component({
   selector: 'app-menu',
-  templateUrl: './app.menu.component.html'
+  templateUrl: './app.menu.component.html',
 })
 export class AppMenuComponent implements OnInit {
-
   model: any[] = [];
 
-  constructor(public layoutService: LayoutService) { }
+  constructor(public layoutService: LayoutService,public authService:AuthService) {}
 
   ngOnInit() {
-      this.model = [
+
+    const funcionarios={
+      label: 'Funcionarios',
+      items: [
+        {
+          label: 'Novo Funcionário',
+          icon: 'pi pi-fw pi-user-plus',
+          routerLink: ['funcionarios/novo'],
+        },
+        {
+          label: 'Todos Funcionários',
+          icon: 'pi pi-fw pi-users',
+          routerLink: ['funcionarios'],
+        },
+      ],
+    }
+
+    // {
+    //     label: 'Publicidade',
+    //     icon: 'pi pi-fw pi-briefcase',
+    //     routerLink: ['/pages'],
+    //     items: [
+    //       {
+    //         label: 'Criar Publicidade',
+    //         icon: 'pi pi-fw pi-calendar-plus',
+    //         routerLink: ['/auth/login']
+    //       }
+
+    //     ]
+    // }
+
+    this.model = [
+      {
+        label: 'Home',
+        items: [
           {
-              label: 'Home',
-              items: [
-                { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] }
-              ]
+            label: 'Dashboard',
+            icon: 'pi pi-fw pi-home',
+            routerLink: ['/home'],
+          },
+        ],
+      },
+      {
+        label: 'Pedidos',
+        items: [
+          {
+            label: 'Novo Pedido',
+            icon: 'pi pi-fw pi-tag',
+            routerLink: ['/pedidos/novo'],
           },
           {
-            label: 'Pedidos',
-            items: [
-              { label: 'Novo Pedido', icon: 'pi pi-fw pi-tag', routerLink: ['/pedidos/novo'] },
-              { label: 'Pedidos Pendentes', icon: 'pi pi-spin pi-spinner', routerLink: ['/pedidos/criados'] },
-              { label: 'Pedidos Concluídos', icon: 'pi pi-fw pi-check-circle', routerLink: ['/pedidos/concluidos'] }
-            ]
-        },
+            label: 'Pedidos Pendentes',
+            icon: 'pi pi-spin pi-spinner',
+            routerLink: ['/pedidos/criados'],
+          },
           {
-              label: 'Funcionarios',
-              items: [
-                { label: 'Novo Funcionário', icon: 'pi pi-fw pi-user-plus', routerLink: ['funcionarios/novo'] },
-                  { label: 'Todos Funcionários', icon: 'pi pi-fw pi-users', routerLink: ['funcionarios'] },
-                 ]
+            label: 'Pedidos Concluídos',
+            icon: 'pi pi-fw pi-check-circle',
+            routerLink: ['/pedidos/concluidos'],
+          },
+        ],
+      },
+
+
+      {
+        label: 'Outros',
+        icon: 'pi pi-fw pi-briefcase',
+        routerLink: ['/pages'],
+        items: [
+          {
+            label: 'Sobre ',
+            icon: 'pi pi-fw pi-info-circle',
+            routerLink: ['/sobre'],
           },
 
           // {
-          //     label: 'Publicidade',
-          //     icon: 'pi pi-fw pi-briefcase',
-          //     routerLink: ['/pages'],
-          //     items: [
-          //       {
-          //         label: 'Criar Publicidade',
-          //         icon: 'pi pi-fw pi-calendar-plus',
-          //         routerLink: ['/auth/login']
-          //       }
+          //   label: 'Configurações ',
+          //   icon: 'pi pi-fw pi-sliders-h',
+          //   routerLink: ['/configuracoes']
+          // }
+        ],
+      },
+    ]
 
-          //     ]
-          // },
-
-          {
-            label: 'Outros',
-            icon: 'pi pi-fw pi-briefcase',
-            routerLink: ['/pages'],
-            items: [
-              {
-                label: 'Sobre ',
-                icon: 'pi pi-fw pi-info-circle',
-                routerLink: ['/sobre']
-              },
-              // {
-              //   label: 'Configurações ',
-              //   icon: 'pi pi-fw pi-sliders-h',
-              //   routerLink: ['/configuracoes']
-              // }
-
-
-            ]
-        }
-
-      ];
-
+    if(this.authService.isAdministrador()){
+      this.model.splice(2,0,funcionarios)
+    }
 
 
   }

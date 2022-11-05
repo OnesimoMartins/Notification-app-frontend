@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Login } from '../models/login.model';
-import { Observable,map,of,throwError } from 'rxjs';
+import { Observable,map,of} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TokenResponse } from '../models/token.response.model';
 import { LoggedUser } from '../models/loged.user.model';
@@ -93,6 +93,12 @@ export class AuthService {
    loggedUser.authorities= decodedToken.authorities
    loggedUser.id=decodedToken.id
    return loggedUser
+  }
+
+  isAdministrador(){
+  const authorities= this.jwtHelper.decodeToken( this.getAccessToken()).authorities as [string]
+
+    return authorities.includes('Administrador')
   }
 
 }
