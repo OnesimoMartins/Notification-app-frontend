@@ -92,7 +92,7 @@
 
                <i class="pi pi-fw pi-check-square" style="margin-right:8px ;"> </i>concluir</p-button>
 
-                <button pButton  class="p-button-secondary " (click)="sendMessage.openMessageBox(pedido.cliente)" ><i class="pi pi-fw  pi-envelope"> </i></button>
+                <button pButton  class="p-button-secondary " (click)="sendMessage.openMessageBox(pedido)" ><i class="pi pi-fw  pi-envelope"> </i></button>
 
 							</div>
 						</div>
@@ -104,7 +104,7 @@
 
       </p-dataView>
 
-      <app-send-message #sendMessage (onMessageSent)="onMessageSent()" ></app-send-message>
+      <app-send-message #sendMessage (onMessageSent)="onMessageSent($event)" ></app-send-message>
 
     </div>
   </div>

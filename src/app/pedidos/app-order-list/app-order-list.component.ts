@@ -104,20 +104,26 @@ export class AppOrderListComponent implements OnInit {
 
   }
 
-  onMessageSent(){
-    this.showConfirmationSuccess("Cliente notificado com sucesso")
+  onMessageSent(pedido:any){
+    if(pedido.markAsDone)
+      this.removeFromPedidoArray(pedido.id)
+   this.showConfirmationSuccess('Cliente notificado com sucesso')
   }
 
   setPedidoId(id:any){
     this.pedidoIdForConfirmation=id
    }
 
- onFinishOrder =()=>{
-  this.pedidoService.confirmPedido(this.pedidoIdForConfirmation,true).subscribe(()=>{
-    const index=this.pedidoPage.content.findIndex(p=>p.id==this.pedidoIdForConfirmation)
-     this.pedidoPage.content.splice(index,1)
+private removeFromPedidoArray(id:any){
+  const index=this.pedidoPage.content.findIndex(p=>p.id==id)
+  this.pedidoPage.content.splice(index,1)
 
-  })
+}
+
+ onFinishOrder =()=>{
+  this.pedidoService.confirmPedido(this.pedidoIdForConfirmation,true).subscribe(
+    ()=>this.removeFromPedidoArray(this.pedidoIdForConfirmation)
+    )
   }
 
   afterFinshOrder(){

@@ -1,6 +1,8 @@
 import { Component, EventEmitter,Output } from '@angular/core';
 import Cliente from 'src/app/core/models/cliente.model';
+import { Pedido } from 'src/app/core/models/pedido.model';
 import { ClienteService } from 'src/app/core/services/cliente.service';
+import { PedidoService } from 'src/app/core/services/pedido.service';
 import { LayoutService } from 'src/app/shared/layout/services/layout.service';
 
 @Component({
@@ -10,34 +12,44 @@ import { LayoutService } from 'src/app/shared/layout/services/layout.service';
 export class AppSendMessageComponent {
 
   isVisible:boolean=false
-  cliente:Cliente=new Cliente()
+  pedido:Pedido=new Pedido()
   message:any=''
   markAsDone=true
 
   @Output()
   onMessageSent= new EventEmitter()
 
-  constructor(public layoutService: LayoutService,private clienteService: ClienteService) { }
+  constructor(
+    public layoutService: LayoutService,
+    private clienteService: ClienteService,
+    private pedidoService:PedidoService) { }
 
-  openMessageBox(cliente:Cliente){
+  openMessageBox(pedido:Pedido){
     this.isVisible=true
-    this.cliente=cliente
-  }
-
-  getPrimeiroNome(nomeCompleto: String) {
-    return nomeCompleto.split(' ')[0];
+    this.pedido=pedido
   }
 
   sendMessage() {
 
-    console.log(this.cliente);
 
+    this.clienteService.sendMessage(this.pedido.cliente.numero_telefone,this.message).subscribe(()=>{
 
-    this.clienteService.sendMessage(this.cliente.numero_telefone,this.message).subscribe(()=>{
-      this.onMessageSent.emit()
-      this.isVisible = false;
+    if(this.markAsDone){
+      this.pedidoService.confirmPedido(this.pedido.id,false).subscribe(it=>{
+        this.onMessageSent.emit({markAsDone:true,id:this.pedido.id})
+        this.closeDialog()
+      })
+    } else{
+       this.onMessageSent.emit({markAsDone:false,id:this.pedido.id})
+      this.closeDialog()
+    }
+
     })
 
+  }
+  private closeDialog(){
+    this.message=''
+    this.isVisible = false;
   }
 
 }
