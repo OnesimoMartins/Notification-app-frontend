@@ -69,7 +69,7 @@ export class AppWorkerListComponent implements OnInit,AfterViewInit {
       this.messageService.add({
         closable:true,
         life:7000,
-        summary:"Funcionário desbloaquado com sucesso",
+        summary:"Funcionário desbloqueado com sucesso",
         key:'tst',
         severity:'success'})
 

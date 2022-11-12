@@ -11,20 +11,18 @@ import { OrdersModule } from './pedidos/orders.module';
 import { AppHttpInterceptor } from './core/interceptors/http.interceptor';
 import { SecurityModule } from './security/security.module';
 import { WorkersModule } from './workers/workers.module';
-import { FirstNamePipe } from './core/pipes/first-name.pipe';
+import { PagesModule } from './pages/pages.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    // FirstNamePipe
-  ],
-  exports:[//FirstNamePipe
   ],
   imports: [
     BrowserModule,
     SharedModule,
     SecurityModule,
+    PagesModule,
     OrdersModule,
     WorkersModule,
     HttpClientModule,

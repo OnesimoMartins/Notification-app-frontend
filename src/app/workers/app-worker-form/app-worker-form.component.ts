@@ -32,6 +32,7 @@ export class AppWorkerFormComponent implements OnInit {
   funcionarioId:any=null
 
   ngOnInit(): void {
+
     this.funcionarioId = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (this.isEditing()) {
@@ -39,6 +40,9 @@ export class AppWorkerFormComponent implements OnInit {
       this.funcionarioService.getFuncionario(this.funcionarioId).subscribe(it =>{
         this.funcionarioForm=this.getFormGroup(it)
         this.funcionarioForm.removeControl('password')
+
+        console.log(it);
+
 
       });
     }
@@ -72,7 +76,6 @@ export class AppWorkerFormComponent implements OnInit {
   },
   error: (errorResponse:HttpErrorResponse)=>{
 
-   console.log(errorResponse);
 
     if(errorResponse.error.code=="A-02" ){
       this.messageService.add({key:'tst',

@@ -17,18 +17,6 @@
         (onLazyLoad)="paging($event)"
       >
 
-        <!-- <ng-template pTemplate="header"> -->
-          <!-- <div  class="grid grid-nogutter flex-column md:flex-row justify-content-between"> -->
-
-            <!-- <span class="p-input-icon-left mb-2 md:mb-0"> -->
-              <!-- <i class="pi pi-search"></i>
-              <input type="search" pInputText placeholder="Nome do cliente" /> -->
-            <!-- </span> -->
-
-          <!-- </div> -->
-        <!-- </ng-template> -->
-
-
         <ng-template let-funcionario pTemplate="gridItem">
 					<div class="col-12 md:col-4">
 						<div class="card m-3 border-1 surface-border">
@@ -63,6 +51,7 @@
 								<a pButton [routerLink]="'/funcionarios/'+funcionario.id"> <i class="pi pi-fw pi-user-edit"></i>  </a>
 
                 <button pButton  style="margin-left: 8px;" class="p-button-secondary "
+                [disabled]="funcionario.cargo.id==2"
                 (click)="
                 setFuncionarioId(funcionario.id);
                 confirmationBox.openComfirmPopUp($event,'Deseja bloquear este funcionário?',handleLockFuncionario)" >
@@ -70,6 +59,7 @@
                 </button>
 
                 <button pButton  style="margin-left: 8px;" class="p-button-danger"
+                [disabled]="funcionario.cargo.id==2"
                 (click)="
                 setFuncionarioId(funcionario.id);
                 confirmationBox.openComfirmPopUp($event,'Deseja elimminar este funcionário? esta operação é irreverssível.'

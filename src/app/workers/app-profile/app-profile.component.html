@@ -8,7 +8,7 @@
           <p>{{funcionario.nome+" "+funcionario.sobrenome}}</p>
 
           <h5>Telemóvel</h5>
-          <p>{{ FormatPhoneNumber(funcionario.telefone)}}</p>
+          <p>{{ funcionario.telefone| phonenumber}}</p>
 
           <h5>Função</h5>
           <p>{{funcionario.cargo.descricao}}</p>

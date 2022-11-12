@@ -8,13 +8,15 @@ import { AppProfileComponent } from './app-profile/app-profile.component';
 import { AppWorkerListComponent } from './app-workers-list/app-worker-list.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { PhoneNumberPipe } from '../core/pipes/phone-Number.pipe';
 
 
 @NgModule({
   declarations: [
     AppProfileComponent,
     AppWorkerListComponent,
-    AppWorkerFormComponent
+    AppWorkerFormComponent,
+    PhoneNumberPipe
   ],
   imports: [
     FormsModule,
