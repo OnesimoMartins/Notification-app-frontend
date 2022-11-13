@@ -12,9 +12,12 @@ import { LoginGuard } from "./core/guards/login.guard";
 import { AdministradorGuard } from "./core/guards/administrador.guard";
 import { AppDashboardComponent } from "./pages/app-dashboard/app-dashboard.component";
 import { AppAboutComponent } from "./pages/app-about/app-about.component";
+import { AppNotFoundComponent } from "./pages/app-not-found/app-not-found.component";
 
 
 const routes:Routes=[
+  {path:'**',component:AppNotFoundComponent},
+
   {path:'',component:LayoutComponent,
   children:[
     {path:'',component:AppDashboardComponent,canActivate:[AuthenticationGuard]},
