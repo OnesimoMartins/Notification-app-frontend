@@ -16,7 +16,7 @@ import { AppNotFoundComponent } from "./pages/app-not-found/app-not-found.compon
 
 
 const routes:Routes=[
-  {path:'**',component:AppNotFoundComponent},
+
 
   {path:'',component:LayoutComponent,
   children:[
@@ -26,13 +26,26 @@ const routes:Routes=[
     {path:'sobre',component:AppAboutComponent,canActivate:[AuthenticationGuard]},
     {path:'pedidos/novo',component:AppNewOrderFormComponent,canActivate:[AuthenticationGuard]},
     {path:'pedidos/:type',component:AppOrderListComponent,canActivate:[AuthenticationGuard]},
-    {path:'funcionarios',component:AppWorkerListComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
-    {path:'funcionarios/:id',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
-    {path:'funcionarios/novo',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+    {path:'funcionarios',loadChildren:()=>import('./workers/workers.module').then(it=>it.WorkersModule) },
+    // {path:'funcionarios',component:AppWorkerListComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+    // {path:'funcionarios/:id',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+    // {path:'funcionarios/novo',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+
+
+    // {path:'funcionarios',canActivate:[AuthenticationGuard,AdministradorGuard],
+    // loadChildren:()=>import('./workers/workers.module').then(it=>it.WorkersModule),
+    // children:[
+    //   {path:'',component:AppWorkerListComponent},
+    //   {path:'funcionarios/:id',component:AppWorkerFormComponent},
+    //   {path:'funcionarios/novo',component:AppWorkerFormComponent},
+    // ]},
+
+
+
   ],
   },
-  {path:"auth/login",component:AppLoginComponent,canActivate:[LoginGuard]}
-
+  {path:"auth/login",component:AppLoginComponent,canActivate:[LoginGuard]},
+  {path:'**',component:AppNotFoundComponent,canActivate:[AuthenticationGuard]}
 ]
 
 @NgModule({

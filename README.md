@@ -1,20 +1,29 @@
-#Functionalities
 
-Workers Module
+this repository is the frontend part of my production-ready aplication that allowses management
+of orders an costumer notification on shoes clean company. 
 
-@List workers
+the has been divided in following  functinalitits modules:
+
+#Workers Module
+
+List workers
 Create worker
 Edit worker
-Blokc worker
-Delete Worker
-#block user
+Block worker
+Delete Worker [Must have Admin role]
+block user [Must have Admin role]
 
 #Profile Module
-edite name and sobrnome
+
+Edit name
 alter password
 
-Orders Functionalities
+#Orders
 
-Create Order
+Create order
 finish order
-Send Message
+finish or with custom notification message
+Send Message to client
+
+
+#project Screenshts 

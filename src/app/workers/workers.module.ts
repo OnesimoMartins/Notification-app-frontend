@@ -9,6 +9,7 @@ import { AppWorkerListComponent } from './app-workers-list/app-worker-list.compo
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { PhoneNumberPipe } from '../core/pipes/phone-Number.pipe';
+import { WorkersRoutingModule } from './workers-routing.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { PhoneNumberPipe } from '../core/pipes/phone-Number.pipe';
   ],
   imports: [
     FormsModule,
+    WorkersRoutingModule,
     SharedModule,
     ReactiveFormsModule,
     PrimengModule,

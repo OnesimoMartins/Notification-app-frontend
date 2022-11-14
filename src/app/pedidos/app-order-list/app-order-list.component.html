@@ -72,13 +72,13 @@
 
                   <div class="flex align-items-center">
                     <span class="font-semibold">Data de criação:</span>
-                    <span>{{'2020-10-12'}}</span>
+                    <span>{{pedido.data_criacao | date}}</span>
                   </div>
 
                   <div class="mb-3" style="margin-top: 12px;"></div>
                   <div class="flex align-items-center">
                     <span class="font-semibold">Hora de criação:</span>
-                    <span>{{'22:30'}}</span>
+                    <span>{{pedido.data_criacao | date : 'shortTime'}}</span>
                   </div>
 
                   <div class="mb-3" style="margin-top: 12px;"></div>
