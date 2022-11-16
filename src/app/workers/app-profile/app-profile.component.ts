@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { FormatPhoneNumber } from 'src/app/core/algorithms/commons.algorithm';
 import { Funcionario } from 'src/app/core/models/funcionario.model';
 import { LoggedUser } from 'src/app/core/models/loged.user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -97,7 +96,6 @@ export class AppProfileComponent implements OnInit {
     }
   }
 
-  FormatPhoneNumber(phone:string){return FormatPhoneNumber(phone)}
   setOption(option:number){this.option=option }
 
 }

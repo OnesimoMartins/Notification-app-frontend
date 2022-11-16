@@ -20,12 +20,12 @@ import { WorkersRoutingModule } from './workers-routing.module';
     PhoneNumberPipe
   ],
   imports: [
-    FormsModule,
     WorkersRoutingModule,
     SharedModule,
+
+    FormsModule,
     ReactiveFormsModule,
     PrimengModule,
-    FormsModule,
     CommonModule,
     RouterModule
   ],

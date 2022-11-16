@@ -6,12 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from './shared/shared.module';
-import { OrdersModule } from './pedidos/orders.module';
 import { AppHttpInterceptor } from './core/interceptors/http.interceptor';
-import { SecurityModule } from './security/security.module';
-import { WorkersModule } from './workers/workers.module';
 import { PagesModule } from './pages/pages.module';
+import { CommonModule } from '@angular/common';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -19,22 +17,23 @@ import { PagesModule } from './pages/pages.module';
     AppComponent,
   ],
   imports: [
-    BrowserModule,
-    SharedModule,
-    SecurityModule,
-    PagesModule,
-    OrdersModule,
-    WorkersModule,
-    HttpClientModule,
+    // SharedModule,
+    // SecurityModule,
+    // PagesModule,
+    // OrdersModule,
+    // WorkersModule,
     AppRoutingModule,
+    FormsModule,
+
+    CommonModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
-    FormsModule,
-    AppRoutingModule,
+    BrowserModule,
     HttpClientModule
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:AppHttpInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:AppHttpInterceptor,multi:true},
+    {provide:JWT_OPTIONS,useValue:JWT_OPTIONS},JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

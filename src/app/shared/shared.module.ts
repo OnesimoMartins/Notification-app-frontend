@@ -5,14 +5,13 @@ import { RouterModule } from '@angular/router';
 import { AppTopbarComponent } from './layout/app-topbar/app-topbar.component';
 import { AppFooterComponent } from './layout/app-footer/app-footer.component';
 import { AppMenuItemComponent } from './layout/app-menu-item/app-menu-item.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppMenuComponent } from './layout/app-menu/app.menu.component';
 import { AppSidebarComponent } from './layout/app-sidebar/app-sidebar.component';
 import { PrimengModule } from './primeng/primeng.module';
 import { AppConfirmationBoxComponent } from './app-confirmation-box/app-confirmation-box.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,10 +24,9 @@ import { AppConfirmationBoxComponent } from './app-confirmation-box/app-confirma
     AppConfirmationBoxComponent
   ],
   imports: [
-    BrowserModule,
         FormsModule,
-        BrowserAnimationsModule,
         PrimengModule,
+        CommonModule,
         RouterModule,
   ],
   exports:[LayoutComponent,AppConfirmationBoxComponent]

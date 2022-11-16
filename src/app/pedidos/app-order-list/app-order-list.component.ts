@@ -114,11 +114,11 @@ export class AppOrderListComponent implements OnInit {
     this.pedidoIdForConfirmation=id
    }
 
-private removeFromPedidoArray(id:any){
-  const index=this.pedidoPage.content.findIndex(p=>p.id==id)
-  this.pedidoPage.content.splice(index,1)
+  private removeFromPedidoArray(id:any){
+   const index=this.pedidoPage.content.findIndex(p=>p.id==id)
+   this.pedidoPage.content.splice(index,1)
 
-}
+  }
 
  onFinishOrder =()=>{
   this.pedidoService.confirmPedido(this.pedidoIdForConfirmation,true).subscribe(

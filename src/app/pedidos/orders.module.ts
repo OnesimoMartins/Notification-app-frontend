@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppSendMessageComponent } from './app-send-message/app-send-message.component';
 import { SharedModule } from '../shared/shared.module';
 import { FirstNamePipe } from '../core/pipes/first-name.pipe';
+import { OrdersRoutingModule } from './orders-routing.module';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,17 @@ import { FirstNamePipe } from '../core/pipes/first-name.pipe';
   ],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
+
+    CommonModule,
     MessageModule,
+
     ProgressSpinnerModule,
     ProgressBarModule,
-    ReactiveFormsModule,
-    CommonModule,
+    OrdersRoutingModule,
     SharedModule,
-    PrimengModule,
-  ]
+    PrimengModule
+  ],
+  providers:[MessageService,ConfirmationService]
 })
 export class OrdersModule { }

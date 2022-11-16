@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -13,7 +13,7 @@ import { phoneNumber } from 'src/app/core/validators/phone.validator';
   selector: 'app-worker-form',
   templateUrl: './app-worker-form.component.html',
 })
-export class AppWorkerFormComponent implements OnInit {
+export class AppWorkerFormComponent implements OnInit,AfterViewInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -21,28 +21,31 @@ export class AppWorkerFormComponent implements OnInit {
     private messageService:MessageService,
     private cargoService:CargoService,
     private fb:FormBuilder,
-    router: Router
-  ) {
-    router.routeReuseStrategy.shouldReuseRoute = () => false;
-  }
+    private router: Router
+  ) {}
 
   tittle = 'Novo Funcionário';
   funcionarioForm= this.getFormGroup()
   cargos:Cargo[]=[]
   funcionarioId:any=null
 
+  ngAfterViewInit(){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
+
   ngOnInit(): void {
 
     this.funcionarioId = this.activatedRoute.snapshot.paramMap.get('id');
+
+    console.log(this.activatedRoute.snapshot.paramMap.getAll('id'));
+
+    console.log(this.funcionarioId);
 
     if (this.isEditing()) {
       this.tittle = 'Editar Funcionário';
       this.funcionarioService.getFuncionario(this.funcionarioId).subscribe(it =>{
         this.funcionarioForm=this.getFormGroup(it)
         this.funcionarioForm.removeControl('password')
-
-        console.log(it);
-
 
       });
     }
@@ -99,7 +102,9 @@ export class AppWorkerFormComponent implements OnInit {
   }
 
   public isEditing(){
-    return this.funcionarioId != 'novo'
+    console.log(this.funcionarioId);
+
+    return  this.funcionarioId != 'novo'
   }
 
 
