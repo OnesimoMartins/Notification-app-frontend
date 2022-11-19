@@ -37,9 +37,6 @@ export class AppWorkerFormComponent implements OnInit,AfterViewInit {
 
     this.funcionarioId = this.activatedRoute.snapshot.paramMap.get('id');
 
-    console.log(this.activatedRoute.snapshot.paramMap.getAll('id'));
-
-    console.log(this.funcionarioId);
 
     if (this.isEditing()) {
       this.tittle = 'Editar Funcionário';
@@ -64,14 +61,14 @@ export class AppWorkerFormComponent implements OnInit,AfterViewInit {
     });
   }
 
-  public submitWorker() {
+ public submitWorker() {
 
   const id=this.isEditing()? this.funcionarioId :null
   this.funcionarioService.createUpdateFuncionario(this.funcionarioForm.value,id).subscribe({
   next:value=>{
       this.messageService.add({key:'tst',
       severity:'success',
-      closable:true,summary:"Funcionário criado"
+      closable:true,summary:this.isEditing()?'Funcionário editado com sucesso.':"Funcionário criado com sucesso."
       ,detail:value.nome.concat(" ".concat(value.sobrenome)), life:7000,})
 
       if(!this.isEditing()) this.funcionarioForm=this.getFormGroup()
@@ -97,15 +94,11 @@ export class AppWorkerFormComponent implements OnInit,AfterViewInit {
   }
 
 })
-   console.log(this.funcionarioForm.value);
 
   }
 
   public isEditing(){
-    console.log(this.funcionarioId);
+    return  this.funcionarioId  && this.funcionarioId != 'novo'
 
-    return  this.funcionarioId != 'novo'
-  }
-
-
+ }
 }

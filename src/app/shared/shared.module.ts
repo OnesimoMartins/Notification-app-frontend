@@ -9,9 +9,11 @@ import { FormsModule } from '@angular/forms';
 
 import { AppMenuComponent } from './layout/app-menu/app.menu.component';
 import { AppSidebarComponent } from './layout/app-sidebar/app-sidebar.component';
-import { PrimengModule } from './primeng/primeng.module';
 import { AppConfirmationBoxComponent } from './app-confirmation-box/app-confirmation-box.component';
 import { CommonModule } from '@angular/common';
+
+import {ConfirmPopupModule } from 'primeng/confirmpopup'
+
 
 @NgModule({
   declarations: [
@@ -25,9 +27,11 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
         FormsModule,
-        PrimengModule,
         CommonModule,
         RouterModule,
+
+
+        ConfirmPopupModule
   ],
   exports:[LayoutComponent,AppConfirmationBoxComponent]
 })

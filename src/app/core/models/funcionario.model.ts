@@ -11,8 +11,6 @@ export class Funcionario{
 
   static fromJSON(json:any):Funcionario{
 
-    console.log(json);
-
     const funcionario= new Funcionario()
 
     funcionario.cargo=json.cargo ?? ''

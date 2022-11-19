@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimengModule } from '../shared/primeng/primeng.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppWorkerFormComponent } from './app-worker-form/app-worker-form.component';
@@ -11,6 +10,12 @@ import { SharedModule } from '../shared/shared.module';
 import { PhoneNumberPipe } from '../core/pipes/phone-Number.pipe';
 import { WorkersRoutingModule } from './workers-routing.module';
 
+import {DataViewModule} from 'primeng/dataview'
+import {InputTextModule} from 'primeng/inputtext'
+import {DropdownModule} from 'primeng/dropdown'
+import {ButtonModule} from 'primeng/button'
+import { ToastModule } from 'primeng/toast';
+import {DividerModule } from 'primeng/divider'
 
 @NgModule({
   declarations: [
@@ -25,9 +30,16 @@ import { WorkersRoutingModule } from './workers-routing.module';
 
     FormsModule,
     ReactiveFormsModule,
-    PrimengModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+
+
+    DividerModule,
+    ToastModule,
+    DataViewModule,
+    InputTextModule,
+    DropdownModule,
+    ButtonModule
   ],
   providers:[MessageService,ConfirmationService]
 })

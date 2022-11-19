@@ -9,11 +9,13 @@ import { AppWorkerListComponent } from "./app-workers-list/app-worker-list.compo
 
 const routes:Routes=[
 
-      {path:'meu-perfil',component:AppProfileComponent,canActivate:[AuthenticationGuard]},
+
       {path:'novo',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+      {path:'meu-perfil',component:AppProfileComponent,canActivate:[AuthenticationGuard]},
       {path:'',component:AppWorkerListComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
-      {path:':id',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
-      // {path:'x/:id',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard]},
+      {path:'editar/:id',component:AppWorkerFormComponent,canActivate:[AuthenticationGuard,AdministradorGuard],
+
+      },
     ]
 
 

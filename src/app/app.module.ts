@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppHttpInterceptor } from './core/interceptors/http.interceptor';
-import { PagesModule } from './pages/pages.module';
 import { CommonModule } from '@angular/common';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
@@ -17,11 +16,6 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     AppComponent,
   ],
   imports: [
-    // SharedModule,
-    // SecurityModule,
-    // PagesModule,
-    // OrdersModule,
-    // WorkersModule,
     AppRoutingModule,
     FormsModule,
 

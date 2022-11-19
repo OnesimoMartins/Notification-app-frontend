@@ -26,6 +26,8 @@ const routes:Routes=[
   },
 
   {path:'auth/login',loadChildren:()=>import('./security/security.module').then(it=>it.SecurityModule)},
+  {path:'admin/api',loadChildren:()=>import('./observability/observability.module').then(it=>it.ObservabilityModule)},
+
   {path:'**',component:AppNotFoundComponent,canActivate:[AuthenticationGuard]}
 ]
 
