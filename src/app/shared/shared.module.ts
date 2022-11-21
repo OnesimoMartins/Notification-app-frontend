@@ -33,6 +33,6 @@ import {ConfirmPopupModule } from 'primeng/confirmpopup'
 
         ConfirmPopupModule
   ],
-  exports:[LayoutComponent,AppConfirmationBoxComponent]
+  exports:[LayoutComponent,AppConfirmationBoxComponent,]
 })
 export class SharedModule { }

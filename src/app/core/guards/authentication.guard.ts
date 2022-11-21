@@ -21,8 +21,8 @@ export class AuthenticationGuard implements CanActivate{
 
       this.authService.refreshToken().subscribe({
 
-        error:(e)=>this.redirectToLoginPage(),
-
+        error:()=> this.authService.logout().subscribe(it=>this.redirectToLoginPage())
+        ,
         next:(authenticated)=>  authenticated? canActivate=true: this.redirectToLoginPage()
 
       });
