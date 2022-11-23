@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AppHttpInterceptor } from './core/interceptors/http.interceptor';
 import { CommonModule } from '@angular/common';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { GlobalErrorHandler } from './core/errors/error.handler';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     HttpClientModule
   ],
   providers: [
+    {provide:ErrorHandler,useClass:GlobalErrorHandler},
     {provide:HTTP_INTERCEPTORS,useClass:AppHttpInterceptor,multi:true},
     {provide:JWT_OPTIONS,useValue:JWT_OPTIONS},JwtHelperService
   ],
