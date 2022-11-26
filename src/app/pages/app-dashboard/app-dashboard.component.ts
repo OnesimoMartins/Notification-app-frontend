@@ -9,7 +9,8 @@ import { LayoutService } from 'src/app/shared/layout/services/layout.service';
 })
 export class AppDashboardComponent implements OnInit {
 
-  constructor( public layoutService: LayoutService, private dashboardService:DashboardService) {  }
+  constructor( public layoutService: LayoutService,
+     private dashboardService:DashboardService) {  }
 
   dashboard=new Dashboard()
 

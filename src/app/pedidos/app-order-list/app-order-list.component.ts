@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
 import {IsTextWithoutSymbols, ValidNumber,}from 'src/app/core/algorithms/validations.algorithm';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { PedidoPage } from 'src/app/core/models/pedido.page.model';
@@ -9,6 +9,7 @@ import { LoaderService } from 'src/app/core/services/loader.service';
 import { PedidoService } from 'src/app/core/services/pedido.service';
 import { Subject,  map, debounceTime } from 'rxjs';
 import { PedidoFilter } from 'src/app/core/models/pedido.filter';
+import { CustomMessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-order-list',
@@ -34,7 +35,8 @@ export class AppOrderListComponent implements OnInit {
     private router: Router,
     private primeNgConfig: PrimeNGConfig,
     public loader: LoaderService,
-    private messageService:MessageService
+    // private messageService:MessageService
+    private messageService:CustomMessageService
   ) {}
 
   ngOnInit() {
@@ -105,9 +107,14 @@ export class AppOrderListComponent implements OnInit {
   }
 
   onMessageSent(pedido:any){
-    if(pedido.markAsDone)
-      this.removeFromPedidoArray(pedido.id)
-   this.showConfirmationSuccess('Cliente notificado com sucesso')
+
+    if(pedido.markAsDone)  this.removeFromPedidoArray(pedido.id);
+
+      this.messageService.showSuccessMessage('Cliente notificado com sucesso')
+  }
+
+  onMessageNotSent(){
+    this.messageService.showErrorMessage("Não foi possível enviar a mensagem")
   }
 
   setPedidoId(id:any){
@@ -120,24 +127,19 @@ export class AppOrderListComponent implements OnInit {
 
   }
 
- onFinishOrder =()=>{
-  this.pedidoService.confirmPedido(this.pedidoIdForConfirmation,true).subscribe(
-    ()=>this.removeFromPedidoArray(this.pedidoIdForConfirmation)
-    )
+  onFinishOrder =()=>{
+  this.pedidoService.confirmPedido(this.pedidoIdForConfirmation,true).subscribe({
+   next: ()=>{
+    this.messageService.showSuccessMessage('Pedido confirmado com sucesso')
+    this.removeFromPedidoArray(this.pedidoIdForConfirmation)
+   },
+   error:()=>this.messageService.showErrorMessage('Nao foi possível confirmar o pedido')
+  })
   }
 
-  afterFinshOrder(){
-     this.showConfirmationSuccess('Pedido confirmado com sucesso')
-  }
-
-  showConfirmationSuccess(msg:string){
-    this.messageService.add({
-      summary:msg,
-      key:'tst',
-      life:6000,
-      severity:'success'
-    })
-  }
+  // afterFinshOrder(){
+  //    this.messageService.showSuccessMessage('Pedido confirmado com sucesso')
+  // }
 
 
 

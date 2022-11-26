@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { CustomMessageService } from 'src/app/core/services/message.service';
 import { PedidoService } from 'src/app/core/services/pedido.service';
 import { phoneNumber } from 'src/app/core/validators/phone.validator';
 
 @Component({
   selector: 'app-new-order-form',
   templateUrl: './app-new-order-form.component.html',
-  providers:[MessageService]
 })
 export class AppNewOrderFormComponent {
 
   constructor(private pedidoService:PedidoService
-    ,private messageService:MessageService,
+    ,private messageService:CustomMessageService,
     private fb:FormBuilder) { }
 
   pedidoForm=this.getPedidoForm()
@@ -33,8 +32,8 @@ export class AppNewOrderFormComponent {
 
   submitPedido(){
     this.pedidoService.createPedido(this.pedidoForm.value).subscribe(()=>{
-      this.messageService.add({ key: 'tst', severity: 'success', summary: 'Pedido criado'})
-      this.pedidoForm=this.getPedidoForm()
+      this.messageService.showSuccessMessage('Pedido criado com sucesso')
+           this.pedidoForm=this.getPedidoForm()
     });
 
    }

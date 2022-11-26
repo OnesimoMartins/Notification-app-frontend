@@ -1,15 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { Funcionario } from 'src/app/core/models/funcionario.model';
 import { LoggedUser } from 'src/app/core/models/loged.user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FuncionarioService } from 'src/app/core/services/funcionario.service';
+import { CustomMessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-app-profile',
-  templateUrl: './app-profile.component.html'
+  templateUrl: './app-profile.component.html',
+  providers:[CustomMessageService]
 })
 export class AppProfileComponent implements OnInit {
 
@@ -17,7 +18,7 @@ export class AppProfileComponent implements OnInit {
   constructor(private funcionarioService:FuncionarioService
     ,private authService:AuthService
     ,private fb:FormBuilder
-    ,private messageService:MessageService){}
+    ,private messageService:CustomMessageService){}
 
   option:number=0
   loggedUser=new LoggedUser()
@@ -56,23 +57,14 @@ export class AppProfileComponent implements OnInit {
       this.funcionarioService.updateWorkerPassword(this.changePasswordForm.value,
         this.loggedUser.id).subscribe({
           next:()=>{
-          this.messageService.add({
-            key:'tst',
-            life:6000,
-            summary:"Palavra-passe alterada com sucesso.",
-            severity:'success'
-          })
+
+            this.messageService.showSuccessMessage("Palavra-passe alterada com sucesso.")
           this.changePasswordForm=this.getChangePasswordForm()
         },
 
         error: (error:HttpErrorResponse)=>{
           if(error.error.code=='C-00')
-          this.messageService.add({
-            key:'tst',
-            life:6000,
-            summary:"Palavra-passe fornecida está incorrecta.",
-            severity:'error'
-          })
+           this.messageService.showErrorMessage("Palavra-passe fornecida está incorrecta.")
           this.changePasswordForm=this.getChangePasswordForm()
         }
 
@@ -84,15 +76,7 @@ export class AppProfileComponent implements OnInit {
       this.funcionario.sobrenome=this.changeNameForm.value.sobrenome
 
       this.funcionarioService.createUpdateFuncionario(this.funcionario.asFuncionarioInput(),this.funcionario.id)
-      .subscribe(it=>{
-        this.messageService.add({
-          key:'tst',
-          life:6000,
-          summary:"Nome actualizado com sucesso",
-          severity:'success'
-        })
-      })
-
+      .subscribe(()=>this.messageService.showSuccessMessage("Nome actualizado com sucesso"))
     }
   }
 

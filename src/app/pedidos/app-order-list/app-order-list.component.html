@@ -100,11 +100,12 @@
 					</div>
 				</ng-template>
 
-        <app-confirmation-box #confirmationBox (afterAccept)="afterFinshOrder()"></app-confirmation-box>
-
+        <app-confirmation-box #confirmationBox ></app-confirmation-box>
       </p-dataView>
 
-      <app-send-message #sendMessage (onMessageSent)="onMessageSent($event)" ></app-send-message>
+      <app-send-message #sendMessage (onMessageSent)="onMessageSent($event)"
+      (onMessageNotSent)="onMessageNotSent()"
+      ></app-send-message>
 
     </div>
   </div>

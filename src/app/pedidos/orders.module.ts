@@ -20,6 +20,7 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog'
 import {CheckboxModule } from 'primeng/checkbox'
 import { InputTextareaModule } from 'primeng/inputtextarea'
+import { CustomMessageService } from '../core/services/message.service';
 
 
 @NgModule({
@@ -49,6 +50,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea'
     InputTextModule,
     ButtonModule
   ],
-  providers:[MessageService,ConfirmationService]
+  providers:[MessageService,ConfirmationService,CustomMessageService]
 })
 export class OrdersModule { }

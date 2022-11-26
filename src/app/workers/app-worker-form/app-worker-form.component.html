@@ -38,7 +38,7 @@
 
       <div class="field" *ngIf="!isEditing()" >
 				<label >Palavra-passe</label>
-				<input pInputText formControlName="password" />
+				<input pInputText formControlName="password" type="password" />
 
         <small *ngIf="funcionarioForm.get('password')?.errors?.['required']
         &&

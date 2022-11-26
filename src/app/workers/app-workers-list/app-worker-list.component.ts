@@ -1,15 +1,16 @@
-import { Component, OnInit,ChangeDetectionStrategy ,ChangeDetectorRef, AfterViewInit} from '@angular/core';
+import { Component, OnInit ,ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { FuncionarioFilter } from 'src/app/core/models/funcionario.filter';
 import { FuncionarioPage } from 'src/app/core/models/funcionario.page.model';
 import { FuncionarioService } from 'src/app/core/services/funcionario.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
+import { CustomMessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-worker-list',
   templateUrl: './app-worker-list.component.html',
+  providers:[CustomMessageService]
 })
 export class AppWorkerListComponent implements OnInit,AfterViewInit {
 
@@ -21,7 +22,7 @@ export class AppWorkerListComponent implements OnInit,AfterViewInit {
   searchSubject = new Subject<any>();
 
   constructor(private funcionarioService:FuncionarioService,
-    private messageService:MessageService,
+    private messageService:CustomMessageService,
     public loaderService:LoaderService,
     private cdrf:ChangeDetectorRef,
     public loader: LoaderService,
@@ -66,12 +67,7 @@ export class AppWorkerListComponent implements OnInit,AfterViewInit {
 
       this.funcionarioPage.content[index]=it
 
-      this.messageService.add({
-        closable:true,
-        life:7000,
-        summary:"Funcionário desbloqueado com sucesso",
-        key:'tst',
-        severity:'success'})
+      this.messageService.showSuccessMessage("Funcionário desbloqueado com sucesso")
 
     })
 
@@ -84,12 +80,8 @@ else{
       const index=this.funcionarioPage.content.findIndex(f=>f.id==it.id)
       this.funcionarioPage.content[index]=it
 
-      this.messageService.add({
-        closable:true,
-        life:7000,
-        summary:"Funcionário bloqueado com sucesso",
-        key:'tst',
-        severity:'warn'})
+      this.messageService.showSuccessMessage("Funcionário bloqueado com sucesso")
+
       })
 
    }
@@ -101,9 +93,8 @@ else{
 
       this.funcionarioService.getFuncionarios(0,6).subscribe((it)=>{
         this.fillFuncionarioPage(it)
-        this.messageService.add({closable:true,life:7000,
-          summary:"Funcionário eliminado com sucesso",key:'tst',severity:'success'})
 
+        this.messageService.showSuccessMessage("Funcionário eliminado com sucesso")
       })
    })
 

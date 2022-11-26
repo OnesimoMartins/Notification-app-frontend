@@ -1,5 +1,4 @@
 import { Component, EventEmitter,Output } from '@angular/core';
-import Cliente from 'src/app/core/models/cliente.model';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { ClienteService } from 'src/app/core/services/cliente.service';
 import { PedidoService } from 'src/app/core/services/pedido.service';
@@ -19,6 +18,9 @@ export class AppSendMessageComponent {
   @Output()
   onMessageSent= new EventEmitter()
 
+  @Output()
+  onMessageNotSent= new EventEmitter()
+
   constructor(
     public layoutService: LayoutService,
     private clienteService: ClienteService,
@@ -31,23 +33,26 @@ export class AppSendMessageComponent {
 
   sendMessage() {
 
+    this.clienteService.sendMessage(this.pedido.cliente.numero_telefone,this.message).subscribe({
 
-    this.clienteService.sendMessage(this.pedido.cliente.numero_telefone,this.message).subscribe(()=>{
+   error:()=>{this.onMessageNotSent.emit();this.closeDialog()},
+   complete:()=> this.closeDialog(),
+   next: ()=>{
 
     if(this.markAsDone){
-      this.pedidoService.confirmPedido(this.pedido.id,false).subscribe(it=>{
-        this.onMessageSent.emit({markAsDone:true,id:this.pedido.id})
-        this.closeDialog()
+      this.pedidoService.confirmPedido(this.pedido.id,false).subscribe({
+        next:()=>this.onMessageSent.emit({markAsDone:true,id:this.pedido.id}),
+        error:()=>   this.onMessageNotSent.emit()
       })
-    } else{
-       this.onMessageSent.emit({markAsDone:false,id:this.pedido.id})
-      this.closeDialog()
-    }
-
-    })
+    }else
+       this.onMessageSent.emit({markAsDone:true,id:this.pedido.id})
 
   }
-  private closeDialog(){
+
+  })
+
+  }
+  public closeDialog(){
     this.message=''
     this.isVisible = false;
   }
