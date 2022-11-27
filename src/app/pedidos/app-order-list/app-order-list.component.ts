@@ -35,7 +35,6 @@ export class AppOrderListComponent implements OnInit {
     private router: Router,
     private primeNgConfig: PrimeNGConfig,
     public loader: LoaderService,
-    // private messageService:MessageService
     private messageService:CustomMessageService
   ) {}
 
